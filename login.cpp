@@ -1,6 +1,6 @@
 #include "login.h"
 #include <QFont>
-
+#include "game1scene.h"
 Login::Login(QWidget *parent)
     : QWidget{parent}
 {
@@ -9,6 +9,7 @@ Login::Login(QWidget *parent)
     username_lb = new QLabel("Username");
     password_lb = new QLabel("Password");
     errorMsg_lb = new QLabel("Username doesn't exist / Wrong password");
+    errorMsg_lb->hide();
     orMsg_lb = new QLabel("or");
 
     username_te = new QLineEdit();
@@ -30,8 +31,8 @@ Login::Login(QWidget *parent)
     gLayout->addWidget(errorMsg_lb,3,0,1,0,Qt::AlignCenter);
     gLayout->addWidget(login_bt,4,0,1,0);//
     gLayout->addWidget(orMsg_lb,5,0,1,0,Qt::AlignCenter);
-    gLayout->addWidget(signup_bt,6,0,1,2);
-    gLayout->addWidget(guest_bt,6,1,1,1);
+    gLayout->addWidget(signup_bt, 6, 0);
+    gLayout->addWidget(guest_bt, 6, 1);
 
     // set main layout to window
     setLayout(gLayout);
@@ -48,14 +49,39 @@ Login::Login(QWidget *parent)
     connect(guest_bt, &QPushButton::clicked, this, &Login::pressGuest);
 }
 
-void Login::pressLogin(){
+void Login::pressLogin()
+{
+    signIn.setUser(user);
+    signIn.signUserIn(username_te->text(), password_te->text());
+    if (!signIn.isLogin) {
+        errorMsg_lb->show();
+    } else {
+        QGraphicsView *mainView = new QGraphicsView();
+        game1scene *scene1 = new game1scene();
+        mainView->setScene(scene1);
+        mainView->setFixedSize(910, 512);
+        mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+        mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
 
+        mainView->show();
+        this->close();
+    }
 }
 
-void Login::pressSignUp(){
-
+void Login::pressSignUp()
+{
+    signUpPage.show();
 }
 
-void Login::pressGuest(){
+void Login::pressGuest()
+{
+    QGraphicsView *mainView = new QGraphicsView();
+    game1scene *scene1 = new game1scene();
+    mainView->setScene(scene1);
+    mainView->setFixedSize(910, 512);
+    mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+    mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
 
+    mainView->show();
+    this->close();
 }

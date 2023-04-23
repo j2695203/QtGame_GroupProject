@@ -47,8 +47,7 @@ void game1scene::playGame(int time){
     bucketItem = new bucket();
     QGraphicsPixmapItem *cloudItem = new QGraphicsPixmapItem();
 
-    cloudItem -> setPixmap((QPixmap(":/new/prefix1/cloud.png")).scaled(910,100));
-
+    cloudItem->setPixmap((QPixmap(":/cloud.png")).scaled(910, 100));
 
     addItem(bucketItem);
 
@@ -69,7 +68,7 @@ void game1scene::playGame(int time){
 void game1scene::addingDroplet() {
     droplet *dropletItem = new droplet(hardness_rate, health_count);
     addItem(dropletItem);
-    std::cout << *health_count;
+
     if(*health_count == 0){
         dropletGeneration->stop();
         gameOver(100);
@@ -154,7 +153,7 @@ void game1scene::start(){
     userSection = addWidget(userBox);
     userSection->setPos(540,0);
 
-    setBackgroundBrush(QBrush(QImage(":/new/prefix1/background.jpg").scaledToHeight(512).scaledToWidth(910)));
+    setBackgroundBrush(QBrush(QImage(":/background.jpg").scaledToHeight(512).scaledToWidth(910)));
     setSceneRect(0,0,908,510);
 
     connect(button_easy, &QPushButton::clicked, this, &game1scene::mode_easy);

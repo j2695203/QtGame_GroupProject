@@ -4,11 +4,14 @@
 #include "profile.h"
 
 int main(int argc, char **argv) {
-    QApplication app (argc, argv);
-    game1scene *scene1 = new game1scene();
+    QApplication app(argc, argv);
 
-    QGraphicsView *mainView = new QGraphicsView();
+    QFile styleFile(":style.css");
+    styleFile.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(styleFile.readAll());
+    app.setStyleSheet(styleSheet);
 
+<<<<<<< HEAD
     mainView -> setScene(scene1);
     mainView -> setFixedSize(910, 512);
     mainView ->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
@@ -18,11 +21,12 @@ int main(int argc, char **argv) {
 
     // jinny start //////////////////////
     profile *frofileWindow = new profile();
+=======
+    Login *logWindow = new Login();
+>>>>>>> eb2161d697def698c0046cfb41e37cf2c86c13cb
 
     frofileWindow->setWindowTitle("Welcome to Void Game");
     frofileWindow->show();
-
-    // jinny end /////////////////////////
 
     return app.exec();
 }

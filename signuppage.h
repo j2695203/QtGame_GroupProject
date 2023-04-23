@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QLabel>
 #include <QObject>
+#include <QProgressDialog>
 #include <QRegularExpression>
 #include <QSpacerItem>
 #include <QWidget>
@@ -20,6 +21,7 @@ class SignUpPage : public QWidget
     Q_OBJECT
 public:
     SignUpPage();
+    QGridLayout *layout;
     QLabel *profileLabel;
     //    ~SignUpPage()
     //    {
