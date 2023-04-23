@@ -1,5 +1,7 @@
 #include "firebasesignin.h"
 #include "QtCore/qjsonobject.h"
+#include "QtWidgets/qgraphicsview.h"
+#include "game1scene.h"
 
 FirebaseSignIn::FirebaseSignIn(QObject *parent)
     : QObject{parent}
@@ -30,11 +32,13 @@ void FirebaseSignIn::networkReplyResponse()
     if (jsonObj.contains("kind") && jsonObj["registered"] == true) {
         qDebug() << "Login Success";
         QString localId = jsonObj["localId"].toString();
+        qDebug() << localId;
         networkReply = networkAccessManager->get(QNetworkRequest(
             QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User/" + localId + ".json")));
 
-        isLogin = true;
         connect(networkReply, &QNetworkReply::readyRead, this, &FirebaseSignIn::importUserInfo);
+
+        isLogin = true;
     }
 
     //else show the error message
@@ -43,15 +47,25 @@ void FirebaseSignIn::networkReplyResponse()
 void FirebaseSignIn::importUserInfo()
 {
     QString databaseReply = networkReply->readAll();
-    qDebug() << " databaseReply";
+    qDebug() << databaseReply;
     QJsonDocument userJsonDoc = QJsonDocument::fromJson(databaseReply.toUtf8());
     QJsonObject userJsonObj = userJsonDoc.object();
     this->user->username = userJsonObj["username"].toString();
     this->user->firstName = userJsonObj["firstname"].toString();
-    this->user->username = userJsonObj["lastname"].toString();
+    this->user->lastName = userJsonObj["lastname"].toString();
     this->user->score = userJsonObj["score"].toInt();
     this->user->imageURL = userJsonObj["imageURL"].toString();
     this->user->birthday = userJsonObj["birthday"].toString();
+
+    QGraphicsView *mainView = new QGraphicsView();
+
+    game1scene *scene1 = new game1scene(user);
+    mainView->setScene(scene1);
+    mainView->setFixedSize(910, 512);
+    mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+    mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+
+    mainView->show();
 
     //Add more info here
     networkReply->deleteLater();

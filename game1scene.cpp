@@ -2,12 +2,11 @@
 #include "droplet.h"
 #include <iostream>
 
-game1scene::game1scene()
+game1scene::game1scene(User *user)
 {
+    this->user = user;
     // page 1
     start();
-
-
 }
 
 void game1scene::mode_easy(){
@@ -137,8 +136,15 @@ void game1scene::start(){
     levelSection->setPos(380,200);
 
     // user section
-    user_name = new QLabel("guest");
+    qDebug() << "dsdasdsa123" + user->username + "dsdasdasda";
+    if (user->username == "") {
+        user_name = new QLabel("guest");
+    } else {
+        user_name = new QLabel(user->username);
+    }
+
     button_profile = new QPushButton("Profile");
+
     button_score_board = new QPushButton("Score borad");
     button_signout = new QPushButton("Sign out");
 
@@ -159,6 +165,9 @@ void game1scene::start(){
     connect(button_easy, &QPushButton::clicked, this, &game1scene::mode_easy);
     connect(button_medium, &QPushButton::clicked, this, &game1scene::mode_medium);
     connect(button_hard, &QPushButton::clicked, this, &game1scene::mode_hard);
+}
 
-
+void game1scene::setUser(User *user)
+{
+    this->user = user;
 }

@@ -53,19 +53,15 @@ void Login::pressLogin()
 {
     signIn.setUser(user);
     signIn.signUserIn(username_te->text(), password_te->text());
-    if (!signIn.isLogin) {
-        errorMsg_lb->show();
-    } else {
-        QGraphicsView *mainView = new QGraphicsView();
-        game1scene *scene1 = new game1scene();
-        mainView->setScene(scene1);
-        mainView->setFixedSize(910, 512);
-        mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
-        mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
 
-        mainView->show();
-        this->close();
-    }
+    connect(signIn.networkReply, &QNetworkReply::finished, this, [this]() {
+        if (!signIn.isLogin) {
+            errorMsg_lb->show();
+        } else {
+            this->hide();
+        }
+        qDebug() << user->username + "Hellooooo";
+    });
 }
 
 void Login::pressSignUp()
@@ -76,7 +72,7 @@ void Login::pressSignUp()
 void Login::pressGuest()
 {
     QGraphicsView *mainView = new QGraphicsView();
-    game1scene *scene1 = new game1scene();
+    game1scene *scene1 = new game1scene(user);
     mainView->setScene(scene1);
     mainView->setFixedSize(910, 512);
     mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));

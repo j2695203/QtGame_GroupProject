@@ -1,13 +1,13 @@
 #ifndef GAME1SCENE_H
 #define GAME1SCENE_H
 
-#include <QObject>
-#include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
+#include <QObject>
 #include <QWidget>
 #include <QtWidgets>
 #include "bucket.h"
-
+#include "user.h"
 class game1scene : public QGraphicsScene
 {
     Q_OBJECT
@@ -43,18 +43,18 @@ class game1scene : public QGraphicsScene
     QVBoxLayout *overVLayout;
     QHBoxLayout *overHLayout;
     QGroupBox *overBox;
-    QGraphicsProxyWidget * overSection;
-
+    QGraphicsProxyWidget *overSection;
 
     QTimer *dropletGeneration;
 
+    User *user = new User;
 
 public:
-     game1scene();
-     void playGame(int time);
-     void gameOver(int s);
-     void start();
-
+    game1scene(User *user);
+    void playGame(int time);
+    void gameOver(int s);
+    void start();
+    void setUser(User *user);
 
 signals:
 

@@ -11,6 +11,7 @@ SOURCES += \
     game1scene.cpp \
     login.cpp \
     main.cpp \
+    profile.cpp \
     signuppage.cpp \
     user.cpp
 
@@ -23,6 +24,7 @@ HEADERS += \
     firebaseauth.h \
     firebasedbhelper.h \
     firebasestorage.h \
+    profile.h \
     signuppage.h \
     user.h
 
