@@ -58,7 +58,18 @@ void Login::pressLogin()
         if (!signIn.isLogin) {
             errorMsg_lb->show();
         } else {
-            this->hide();
+            connect(&signIn, &FirebaseSignIn::finishedImportUserInfo, this, [this]() {
+                QGraphicsView *mainView = new QGraphicsView();
+
+                game1scene *scene1 = new game1scene(user);
+                mainView->setScene(scene1);
+                mainView->setFixedSize(910, 512);
+                mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+                mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+
+                mainView->show();
+                this->close();
+            });
         }
         qDebug() << user->username + "Hellooooo";
     });

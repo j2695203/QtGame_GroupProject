@@ -29,6 +29,7 @@ private:
     void performPOST(QString &url, QJsonDocument &payload);
 
 signals:
+    void finishedImportUserInfo();
 };
 
 #endif // FIREBASESIGNIN_H

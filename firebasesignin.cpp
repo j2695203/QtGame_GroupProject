@@ -57,15 +57,16 @@ void FirebaseSignIn::importUserInfo()
     this->user->imageURL = userJsonObj["imageURL"].toString();
     this->user->birthday = userJsonObj["birthday"].toString();
 
-    QGraphicsView *mainView = new QGraphicsView();
+    emit finishedImportUserInfo();
+    //    QGraphicsView *mainView = new QGraphicsView();
 
-    game1scene *scene1 = new game1scene(user);
-    mainView->setScene(scene1);
-    mainView->setFixedSize(910, 512);
-    mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
-    mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+    //    game1scene *scene1 = new game1scene(user);
+    //    mainView->setScene(scene1);
+    //    mainView->setFixedSize(910, 512);
+    //    mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
+    //    mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
 
-    mainView->show();
+    //    mainView->show();
 
     //Add more info here
     networkReply->deleteLater();
