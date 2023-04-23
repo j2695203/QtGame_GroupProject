@@ -1,0 +1,21 @@
+* {
+    background-color: DarkSlateGray;
+    color: Azure;
+    font-family: "Monocraft", Times, serif;
+}
+
+QPushButton {
+    background-color: 	#1DB954; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 8px;
+/*    box-shadow: 10px 5px 5px red;*/
+}
+
+QPushButton::hover {
+background-color : white;
+color:black;
+}
