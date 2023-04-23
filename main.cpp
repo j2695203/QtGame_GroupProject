@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QGraphicsView>
 #include "game1scene.h"
+#include "login.h"
 
 int main(int argc, char **argv) {
     QApplication app (argc, argv);
@@ -13,7 +14,15 @@ int main(int argc, char **argv) {
     mainView ->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
     mainView ->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
 
-    mainView -> show();
+//    mainView -> show();
+
+    // jinny start //////////////////////
+    Login *logWindow = new Login();
+
+    logWindow->setWindowTitle("Welcome to Void Game");
+    logWindow->show();
+
+    // jinny end /////////////////////////
 
     return app.exec();
 }
