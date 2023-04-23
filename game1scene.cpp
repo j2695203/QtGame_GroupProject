@@ -6,7 +6,13 @@ game1scene::game1scene()
 {
 
     bucket *bucketItem = new bucket();
+    scoreText = new QGraphicsTextItem();
 
+    scoreText = this->addText(QString("Score: ") + QVariant(actualScore).toString());
+    scoreText -> setDefaultTextColor("black");
+    scoreText -> setScale(2);
+    scoreText -> setPos(30, 20);
+    scoreText -> setZValue(1);
 
 
     QGraphicsPixmapItem *cloudItem = new QGraphicsPixmapItem();
@@ -19,7 +25,10 @@ game1scene::game1scene()
 
     addItem(bucketItem);
 
+    addItem(scoreText);
+
     addItem(cloudItem);
+
 
     bucketItem -> setFlag(QGraphicsItem::ItemIsFocusable);
 

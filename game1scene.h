@@ -8,6 +8,8 @@
 class game1scene : public QGraphicsScene
 {
     Q_OBJECT
+    QGraphicsTextItem *scoreText;
+    int actualScore;
 
 
 public:
