@@ -13,7 +13,7 @@ void FirebaseSignIn::signUserIn(QString username, QString password)
         = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
           + this->apiKey;
     QVariantMap variantPayload;
-    variantPayload["email"] = username;
+    variantPayload["email"] = username + "@gmail.com";
     variantPayload["password"] = password;
     variantPayload["returnSecureToken"] = true;
     QJsonDocument jsonPayload = QJsonDocument::fromVariant(variantPayload);
@@ -32,15 +32,18 @@ void FirebaseSignIn::networkReplyResponse()
         QString localId = jsonObj["localId"].toString();
         networkReply = networkAccessManager->get(QNetworkRequest(
             QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User/" + localId + ".json")));
+
+        isLogin = true;
         connect(networkReply, &QNetworkReply::readyRead, this, &FirebaseSignIn::importUserInfo);
     }
+
     //else show the error message
 }
 
 void FirebaseSignIn::importUserInfo()
 {
     QString databaseReply = networkReply->readAll();
-    //    qDebug() << databaseReply;
+    qDebug() << " databaseReply";
     QJsonDocument userJsonDoc = QJsonDocument::fromJson(databaseReply.toUtf8());
     QJsonObject userJsonObj = userJsonDoc.object();
     this->user->username = userJsonObj["username"].toString();
@@ -48,6 +51,8 @@ void FirebaseSignIn::importUserInfo()
     this->user->username = userJsonObj["lastname"].toString();
     this->user->score = userJsonObj["score"].toInt();
     this->user->imageURL = userJsonObj["imageURL"].toString();
+    this->user->birthday = userJsonObj["birthday"].toString();
+
     //Add more info here
     networkReply->deleteLater();
 }

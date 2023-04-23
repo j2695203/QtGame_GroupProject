@@ -2,8 +2,7 @@
 
 bucket::bucket()
 {
-
-    this -> setPixmap((QPixmap(":/new/prefix1/bucket.png")).scaled(150,150));
+    this->setPixmap((QPixmap(":/bucket.png")).scaled(150, 150));
     this -> setPos(400, 365);
 
 

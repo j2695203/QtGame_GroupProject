@@ -1,8 +1,11 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
+#include <QProgressBar>
 #include <QWidget>
 #include <QtWidgets>
+#include "firebasesignin.h"
+#include "signuppage.h"
 
 class Login : public QWidget
 {
@@ -21,7 +24,7 @@ class Login : public QWidget
     QPushButton *login_bt;
     QPushButton *signup_bt;
     QPushButton *guest_bt;
-
+    User *user = new User;
     // layouts
     QVBoxLayout *mainLayout;
     QGridLayout *gLayout;
@@ -37,6 +40,10 @@ public slots:
     void pressSignUp();
     void pressGuest();
 
+private:
+    SignUpPage signUpPage;
+
+    FirebaseSignIn signIn;
 };
 
 #endif // LOGIN_H

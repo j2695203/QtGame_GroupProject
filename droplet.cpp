@@ -5,7 +5,7 @@ droplet::droplet(QObject *parent)
     : QObject{parent}
 {
     int random_number = arc4random() % 900;
-    this -> setPixmap((QPixmap(":/new/prefix1/water.gif")).scaled(20,40));
+    this->setPixmap((QPixmap(":/water.gif")).scaled(20, 40));
     this -> setPos(random_number, 110);
     QTimer *timer_drop = new QTimer(this);
     connect(timer_drop, &QTimer::timeout, this, &droplet::move_droplet);
@@ -15,7 +15,7 @@ droplet::droplet(QObject *parent)
 droplet::droplet(int time, int *hp){
     this->hp = hp;
     int random_number = arc4random() % 900;
-    this -> setPixmap((QPixmap(":/new/prefix1/water.gif")).scaled(20,40));
+    this->setPixmap((QPixmap(":/water.gif")).scaled(20, 40));
     this -> setPos(random_number, 110);
     timer_drop = new QTimer(this);
     connect(timer_drop, SIGNAL(timeout()), this,SLOT(move_droplet()) );

@@ -13,10 +13,12 @@ class FirebaseSignIn : public QObject
     Q_OBJECT
 public:
     explicit FirebaseSignIn(QObject *parent = nullptr);
+    FirebaseSignIn(User *user);
     void signUserIn(QString username, QString password);
     QNetworkReply *networkReply;
     User *user;
     void setUser(User *user) { this->user = user; }
+    bool isLogin = false;
 public slots:
     void networkReplyResponse();
     void importUserInfo();
@@ -25,8 +27,8 @@ private:
     QString apiKey = "AIzaSyBwgJWz_F7Wu_UzKlxw0D8AZCFHAyvKAJc";
     QNetworkAccessManager *networkAccessManager;
     void performPOST(QString &url, QJsonDocument &payload);
-signals:
 
+signals:
 };
 
 #endif // FIREBASESIGNIN_H

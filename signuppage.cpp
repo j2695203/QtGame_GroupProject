@@ -1,4 +1,5 @@
 #include "signuppage.h"
+#include "QtGui/qmovie.h"
 
 SignUpPage::SignUpPage()
 {
@@ -13,7 +14,7 @@ SignUpPage::SignUpPage()
     firebaseStorage->setUser(user);
 
     //Widget stuff
-    QGridLayout *layout = new QGridLayout();
+    layout = new QGridLayout();
     QLabel *firstNameLabel = new QLabel("First Name: ");
     QLineEdit *qFirstNameEdit = new QLineEdit();
     qFirstNameEdit->setPlaceholderText("Enter first name");
@@ -48,14 +49,13 @@ SignUpPage::SignUpPage()
 
     profileLabel = new QLabel();
     QPushButton *loadFileBtn = new QPushButton("Pick Avatar");
-
     connect(loadFileBtn, &QPushButton::released, [this]() { loadProfilePic(); });
 
     QPushButton *saveToDatabase = new QPushButton("Save to Firebase");
     connect(saveToDatabase,
             &QPushButton::released,
             this,
-            [qLastNameEdit, qFirstNameEdit, userName, password, birthday, this, warning, layout]() {
+            [qLastNameEdit, qFirstNameEdit, userName, password, birthday, this, warning]() {
                 QRegularExpression regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
                 QRegularExpressionMatch match = regex.match(password->text());
                 if (match.hasMatch()) {
@@ -98,10 +98,9 @@ SignUpPage::SignUpPage()
     layout->addWidget(profileLabel, 5, 0);
     layout->addWidget(loadFileBtn, 5, 1);
 
-    layout->addWidget(saveToDatabase, 6, 0);
-    layout->addWidget(showPasswordBtn, 6, 1);
+    layout->addWidget(saveToDatabase, 6, 1);
+    layout->addWidget(showPasswordBtn, 6, 0);
     layout->addWidget(closeBtn, 6, 2);
-    //    layout->addWidget(signIn);
     this->setLayout(layout);
     this->setFixedSize(600, 300);
 }
@@ -156,6 +155,12 @@ void SignUpPage::uploadToFirebase()
     dbHelper->uploadToDatabase(user);
     qDebug() << "Finished upload to database";
 
+    QLabel *label = new QLabel();
+    QMovie *movie = new QMovie(":/loader.gif");
+    layout->addWidget(label, 5, 1);
+    label->setMovie(movie);
+    label->show();
+    movie->start();
     connect(dbHelper->getNetworkManager(),
             &QNetworkAccessManager::finished,
             this,
