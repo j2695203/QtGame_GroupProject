@@ -9,9 +9,13 @@ class droplet : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 
+    int *hp;
+    QTimer *timer_drop;
+
 
 public:
     explicit droplet(QObject *parent = nullptr);
+    droplet(int time, int *hp);
 
 signals:
 
