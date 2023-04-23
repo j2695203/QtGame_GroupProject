@@ -7,48 +7,6 @@ game1scene::game1scene()
     // page 1
     start();
 
-    // level section
-//    level = new QLabel("Level");
-//    button_easy = new QPushButton("Easy");
-//    button_medium = new QPushButton("Medium");
-//    button_hard = new QPushButton("Hard");
-
-//    levelVLayout = new QVBoxLayout();
-
-//    levelVLayout->addWidget(level);
-//    levelVLayout->addWidget(button_easy);
-//    levelVLayout->addWidget(button_medium);
-//    levelVLayout->addWidget(button_hard);
-
-//    levelBox = new QGroupBox();
-//    levelBox->setLayout(levelVLayout);
-//    levelSection = addWidget(levelBox);
-//    levelSection->setPos(380,200);
-
-//    // user section
-//    user_name = new QLabel("guest");
-//    button_profile = new QPushButton("Profile");
-//    button_score_board = new QPushButton("Score borad");
-//    button_signout = new QPushButton("Sign out");
-
-//    userHLayout = new QHBoxLayout();
-
-//    userHLayout->addWidget(user_name);
-//    userHLayout->addWidget(button_profile);
-//    userHLayout->addWidget(button_score_board);
-//    userHLayout->addWidget(button_signout);
-//    userBox = new QGroupBox();
-//    userBox->setLayout(userHLayout);
-//    userSection = addWidget(userBox);
-//    userSection->setPos(540,0);
-
-//    setBackgroundBrush(QBrush(QImage(":/new/prefix1/background.jpg").scaledToHeight(512).scaledToWidth(910)));
-//    setSceneRect(0,0,908,510);
-
-//    connect(button_easy, &QPushButton::clicked, this, &game1scene::mode_easy);
-//    connect(button_medium, &QPushButton::clicked, this, &game1scene::mode_medium);
-//    connect(button_hard, &QPushButton::clicked, this, &game1scene::mode_hard);
-
 }
 
 void game1scene::mode_easy(){
