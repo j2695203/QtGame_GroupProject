@@ -7,7 +7,7 @@ profile::profile(QWidget *parent)
     name->setText("Name: "); //
     birth->setText("Birth: "); //
     gender->setText("Gender: "); //
-    pic->setPixmap(QPixmap(":/new/prefix1/bucket.png").scaled(100,100));
+    pic->setPixmap(QPixmap(":/bucket.png").scaled(100,100));
 
     // set style
     mainLayout->setContentsMargins(60,60,60,60);

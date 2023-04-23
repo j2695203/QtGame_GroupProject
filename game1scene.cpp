@@ -1,5 +1,7 @@
 #include "game1scene.h"
 #include "droplet.h"
+#include "profile.h"
+#include "scoreboard.h"
 #include <iostream>
 
 game1scene::game1scene(User *user)
@@ -165,9 +167,36 @@ void game1scene::start(){
     connect(button_easy, &QPushButton::clicked, this, &game1scene::mode_easy);
     connect(button_medium, &QPushButton::clicked, this, &game1scene::mode_medium);
     connect(button_hard, &QPushButton::clicked, this, &game1scene::mode_hard);
+<<<<<<< HEAD
 }
 
 void game1scene::setUser(User *user)
 {
     this->user = user;
+=======
+
+    connect(button_profile, &QPushButton::clicked, this, &game1scene::openProfile);
+    connect(button_score_board, &QPushButton::clicked, this, &game1scene::openRank);
+
+
+>>>>>>> 2ebdf0728e7574e761ab3de38a04b576bc69096e
 }
+
+void game1scene::openProfile(){
+
+    profile *frofileWindow = new profile();
+    frofileWindow->setWindowTitle("Profile");
+    frofileWindow->show();
+
+
+
+}
+
+void game1scene::openRank(){
+    scoreBoard *score_board = new scoreBoard();
+    score_board->setWindowTitle("Score Board");
+    score_board->show();
+
+}
+
+
