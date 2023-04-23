@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QGraphicsView>
 #include "game1scene.h"
-#include "login.h"
+#include "profile.h"
 
 int main(int argc, char **argv) {
     QApplication app (argc, argv);
@@ -17,10 +17,10 @@ int main(int argc, char **argv) {
 //    mainView -> show();
 
     // jinny start //////////////////////
-    Login *logWindow = new Login();
+    profile *frofileWindow = new profile();
 
-    logWindow->setWindowTitle("Welcome to Void Game");
-    logWindow->show();
+    frofileWindow->setWindowTitle("Welcome to Void Game");
+    frofileWindow->show();
 
     // jinny end /////////////////////////
 
