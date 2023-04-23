@@ -12,6 +12,7 @@ SOURCES += \
     login.cpp \
     main.cpp \
     profile.cpp \
+    scoreboard.cpp \
     signuppage.cpp \
     user.cpp
 
@@ -25,6 +26,7 @@ HEADERS += \
     firebaseauth.h \
     firebasedbhelper.h \
     firebasestorage.h \
+    scoreboard.h \
     signuppage.h \
     user.h
 

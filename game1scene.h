@@ -64,6 +64,8 @@ public slots:
     void mode_medium();
     void mode_hard();
     void restart();
+    void openProfile();
+    void openRank();
 
 
 
