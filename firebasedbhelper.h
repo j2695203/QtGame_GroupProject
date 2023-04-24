@@ -20,7 +20,7 @@ public:
 
     QNetworkAccessManager *getNetworkManager() { return networkManager; }
     void uploadToDatabase(User *user);
-    QHash<QString, int> sortRankScore();
+    QMap<QString, int> sortRankScore();
 
     void setScore(User *user, int score);
 

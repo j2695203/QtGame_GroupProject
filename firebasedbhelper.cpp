@@ -32,9 +32,9 @@ void FirebaseDBHelper::uploadToDatabase(User *user)
     this->networkManager->sendCustomRequest(userRequest, "PATCH", jsonDoc.toJson());
 }
 
-QHash<QString, int> FirebaseDBHelper::sortRankScore()
+QMap<QString, int> FirebaseDBHelper::sortRankScore()
 {
-    QHash<QString, int> rankList;
+    QMap<QString, int> rankList;
     QEventLoop loop;
     networkReply = networkManager->get(
         QNetworkRequest(QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User.json")));
