@@ -2,19 +2,15 @@
     <qresource prefix="/">
         <file>background.jpg</file>
         <file>blue_candy.png</file>
+        <file>bucket.cpp</file>
         <file>bucket.png</file>
         <file>cloud.png</file>
         <file>coin.png</file>
         <file>IMG_2725.PNG</file>
         <file>loader.gif</file>
-<<<<<<< HEAD
-        <file>example.mp3</file>
-        <file>sample-5s.mp4</file>
-=======
         <file>one_summers_day.mp3</file>
         <file>spirited-awaybr-disneyscreencaps.com-1204.jpg</file>
         <file>style.css</file>
         <file>water.gif</file>
->>>>>>> 30d7f37efc468dd99cfe2420290d006133424788
     </qresource>
 </RCC>
