@@ -34,7 +34,7 @@ HEADERS += \
     user.h
 
 RESOURCES += \
-    application.qrc \
     application.qrc
+
 
 

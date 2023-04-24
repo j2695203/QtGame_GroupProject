@@ -155,13 +155,13 @@ void game1scene::restart(){
 }
 
 void game1scene::start(){
-    // page 1
-    music = new QMediaPlayer();
-    audioOut = new QAudioOutput();
-    music->setAudioOutput(audioOut);
-    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
-    audioOut->setVolume(100);
-    music->play();
+//     page 1
+//    music = new QMediaPlayer();
+//    audioOut = new QAudioOutput();
+//    music->setAudioOutput(audioOut);
+//    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
+//    audioOut->setVolume(100);
+//    music->play();
 
     // level section
     level = new QLabel("Level");

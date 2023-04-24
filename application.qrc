@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>style.css</file>
+        <file>background.jpg</file>
+        <file>blue_candy.png</file>
+        <file>bucket.png</file>
+        <file>cloud.png</file>
+        <file>coin.png</file>
+        <file>IMG_2725.PNG</file>
+        <file>loader.gif</file>
+        <file>present.png</file>
+        <file>spirited-awaybr-disneyscreencaps.com-1204.jpg</file>
+        <file>water.gif</file>
+        <file>one_summers_day.mp3</file>
+    </qresource>
+</RCC>
