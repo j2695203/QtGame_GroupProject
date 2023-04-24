@@ -6,6 +6,8 @@
 #include <QObject>
 #include <QWidget>
 #include <QtWidgets>
+#include <QMediaPlayer>>
+#include <QAudioOutput>
 #include "bucket.h"
 #include "profile.h"
 #include "user.h"
@@ -49,6 +51,10 @@ class game1scene : public QGraphicsScene
     QTimer *dropletGeneration;
 
     User *user = new User;
+
+
+    QMediaPlayer *music;
+    QAudioOutput *audioOut;
 
 public:
     game1scene(User *user);

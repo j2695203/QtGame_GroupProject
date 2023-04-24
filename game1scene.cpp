@@ -9,7 +9,8 @@ game1scene::game1scene(User *user)
 {
     this->user = user;
     // page 1
-    start();
+        start();
+
 }
 
 void game1scene::mode_easy(){
@@ -30,6 +31,9 @@ void game1scene::mode_hard(){
 
 void game1scene::playGame(int time){
     // page 2
+
+
+
 
 //    delete levelSection;
     removeItem(levelSection);
@@ -118,7 +122,12 @@ void game1scene::restart(){
 
 void game1scene::start(){
     // page 1
-
+    music = new QMediaPlayer();
+    audioOut = new QAudioOutput();
+    music->setAudioOutput(audioOut);
+    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
+    audioOut->setVolume(100);
+    music->play();
 
     // level section
     level = new QLabel("Level");

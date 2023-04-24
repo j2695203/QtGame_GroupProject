@@ -1,5 +1,7 @@
 QT += widgets
 QT += network
+QT += multimedia
+QT += core gui multimedia
 
 SOURCES += \
     firebaseauth.cpp \
