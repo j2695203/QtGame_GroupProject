@@ -9,12 +9,17 @@ FirebaseDBHelper::FirebaseDBHelper(QObject *parent)
 void FirebaseDBHelper::uploadToDatabase(User *user)
 {
     QVariantMap userChildDetail;
+    //    QVariantList userRankScore;
+    //    foreach (int score, user->rankScore) {
+    //        userRankScore.append(score);
+    //    }
     userChildDetail["firstname"] = user->firstName;
     userChildDetail["lastname"] = user->lastName;
     userChildDetail["username"] = user->username;
     userChildDetail["score"] = user->score;
     userChildDetail["imageUrl"] = user->imageURL;
-    //    userChildDetail["birthday"] = user->birthday;
+    userChildDetail["birthday"] = user->birthday;
+    //    userChildDetail["rankScore"] = userRankScore;
 
     QVariantMap userParent;
     userParent[user->localID] = userChildDetail;
@@ -27,9 +32,9 @@ void FirebaseDBHelper::uploadToDatabase(User *user)
     this->networkManager->sendCustomRequest(userRequest, "PATCH", jsonDoc.toJson());
 }
 
-QList<int> FirebaseDBHelper::sortRankScore()
+QHash<QString, int> FirebaseDBHelper::sortRankScore()
 {
-    QList<int> rankList;
+    QHash<QString, int> rankList;
     QEventLoop loop;
     networkReply = networkManager->get(
         QNetworkRequest(QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User.json")));
@@ -41,8 +46,10 @@ QList<int> FirebaseDBHelper::sortRankScore()
     QJsonDocument jsonDoc = QJsonDocument::fromJson(databaseReply.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
     foreach (QString key, jsonObj.keys()) {
+        QString username = jsonObj.value(key).toObject().value("username").toString();
         int score = jsonObj.value(key).toObject().value("score").toInt();
-        rankList.append(score);
+        //        rankList.append(score);
+        rankList.insert(username, score);
     }
 
     return rankList;

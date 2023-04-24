@@ -14,6 +14,7 @@ public:
     QString imageURL;
     int score = 0;
     QString birthday;
+    //    QList<int> rankScore;
 
 signals:
 };

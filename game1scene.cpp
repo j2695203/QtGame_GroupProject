@@ -167,29 +167,21 @@ void game1scene::start(){
     connect(button_easy, &QPushButton::clicked, this, &game1scene::mode_easy);
     connect(button_medium, &QPushButton::clicked, this, &game1scene::mode_medium);
     connect(button_hard, &QPushButton::clicked, this, &game1scene::mode_hard);
-<<<<<<< HEAD
+    connect(button_profile, &QPushButton::clicked, this, &game1scene::openProfile);
+    connect(button_score_board, &QPushButton::clicked, this, &game1scene::openRank);
 }
 
 void game1scene::setUser(User *user)
 {
     this->user = user;
-=======
-
-    connect(button_profile, &QPushButton::clicked, this, &game1scene::openProfile);
-    connect(button_score_board, &QPushButton::clicked, this, &game1scene::openRank);
-
-
->>>>>>> 2ebdf0728e7574e761ab3de38a04b576bc69096e
 }
 
-void game1scene::openProfile(){
-
-    profile *frofileWindow = new profile();
+void game1scene::openProfile()
+{
+    qDebug() << user->imageURL;
+    profile *frofileWindow = new profile(user);
     frofileWindow->setWindowTitle("Profile");
     frofileWindow->show();
-
-
-
 }
 
 void game1scene::openRank(){

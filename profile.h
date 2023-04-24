@@ -3,24 +3,25 @@
 
 #include <QWidget>
 #include <QtWidgets>
+#include "user.h"
 
 class profile : public QWidget
 {
     Q_OBJECT
-
+    User *user;
     QLabel *title = new QLabel("My Profile");
-    QLabel *name = new QLabel();
-    QLabel *birth = new QLabel();
-    QLabel *gender = new QLabel();
+    QLabel *username = new QLabel();
+    QLabel *birthday = new QLabel();
+    QLabel *lastName = new QLabel();
+    QLabel *firstName = new QLabel();
     QLabel *pic = new QLabel();
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
 
 public:
-    explicit profile(QWidget *parent = nullptr);
+    profile(User *user);
 
 signals:
-
 };
 
 #endif // PROFILE_H

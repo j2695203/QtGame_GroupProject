@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "bucket.h"
+#include "profile.h"
 #include "user.h"
 class game1scene : public QGraphicsScene
 {
@@ -66,9 +67,6 @@ public slots:
     void restart();
     void openProfile();
     void openRank();
-
-
-
 };
 
 #endif // GAME1SCENE_H

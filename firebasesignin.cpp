@@ -54,9 +54,9 @@ void FirebaseSignIn::importUserInfo()
     this->user->firstName = userJsonObj["firstname"].toString();
     this->user->lastName = userJsonObj["lastname"].toString();
     this->user->score = userJsonObj["score"].toInt();
-    this->user->imageURL = userJsonObj["imageURL"].toString();
+    this->user->imageURL = userJsonObj["imageUrl"].toString();
     this->user->birthday = userJsonObj["birthday"].toString();
-
+    //    this->user->rankScore = userJsonObj["rankScore"].toObject().toVariantMap();
     emit finishedImportUserInfo();
     //    QGraphicsView *mainView = new QGraphicsView();
 
