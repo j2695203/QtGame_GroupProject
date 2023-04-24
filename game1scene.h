@@ -27,7 +27,7 @@ class game1scene : public QGraphicsScene
     int *droplet_count;
 
     QLabel *birthday;
-    bool isBirthday = true;
+    bool isBirthday = false;
     QLabel *user_name;
     QPushButton *button_profile;
     QPushButton *button_score_board;
