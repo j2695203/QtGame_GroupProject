@@ -24,6 +24,7 @@ public:
 
     void setScore(User *user, int score);
 
+
 private:
     QNetworkAccessManager *networkManager;
     QNetworkReply *networkReply;

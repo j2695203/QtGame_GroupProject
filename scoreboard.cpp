@@ -28,7 +28,3 @@ scoreBoard::scoreBoard(QWidget *parent)
     setLayout(layout);
 }
 
-bool compareValues(const QPair<QString, int> &a, const QPair<QString, int> &b)
-{
-    return a.second < b.second;
-}

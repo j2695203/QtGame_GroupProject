@@ -2,6 +2,7 @@
 #include "droplet.h"
 #include "profile.h"
 #include "scoreboard.h"
+#include "login.h"
 #include <iostream>
 
 game1scene::game1scene(User *user)
@@ -169,6 +170,8 @@ void game1scene::start(){
     connect(button_hard, &QPushButton::clicked, this, &game1scene::mode_hard);
     connect(button_profile, &QPushButton::clicked, this, &game1scene::openProfile);
     connect(button_score_board, &QPushButton::clicked, this, &game1scene::openRank);
+    connect(button_signout, &QPushButton::clicked, this, &game1scene::signOut);
+
 }
 
 void game1scene::setUser(User *user)
@@ -190,5 +193,26 @@ void game1scene::openRank(){
     score_board->show();
 
 }
+
+void game1scene::signOut(){
+
+    Login *logWindow = new Login();
+    logWindow->show();
+    QList list = items();
+    for(auto &i : list){
+        removeItem(i);
+    }
+    QList view = views();
+    for(auto v : view){
+        v->close();
+    }
+    this->clear();
+
+
+}
+
+
+
+
 
 
