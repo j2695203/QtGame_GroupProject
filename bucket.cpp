@@ -3,8 +3,8 @@
 bucket::bucket()
 {
 
-    this -> setPixmap((QPixmap(":/new/prefix1/bucket.png")).scaled(150,150));
-    this -> setPos(400, 365);
+    this -> setPixmap((QPixmap(":/new/prefix1/IMG_2725.PNG")).scaled(80,135));
+    this -> setPos(400, 355);
 
 
 }

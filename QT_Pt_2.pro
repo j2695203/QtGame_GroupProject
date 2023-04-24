@@ -1,4 +1,5 @@
-QT += widgets
+QT += widgets \
+    multimedia
 
 SOURCES += \
     bucket.cpp \
