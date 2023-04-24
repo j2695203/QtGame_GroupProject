@@ -77,7 +77,8 @@ void Login::pressLogin()
 
 void Login::pressSignUp()
 {
-    signUpPage.show();
+    SignUpPage *signUpPage = new SignUpPage();
+    signUpPage->show();
 }
 
 void Login::pressGuest()

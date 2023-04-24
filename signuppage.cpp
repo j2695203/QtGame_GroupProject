@@ -28,6 +28,8 @@ SignUpPage::SignUpPage()
 
     QLabel *warning = new QLabel();
     warning->hide();
+    warning->setStyleSheet("color:red;");
+
     QLabel *passwordLabel = new QLabel("Password: ");
     QLineEdit *password = new QLineEdit();
     password->setEchoMode(QLineEdit::Password);
@@ -47,7 +49,7 @@ SignUpPage::SignUpPage()
     birthday->setMaximumDate(QDate::currentDate());
     birthday->setDisplayFormat("dd/MM/yyyy");
 
-    profileLabel = new QLabel();
+    profileLabel = new QLabel("Avatar: ");
     QPushButton *loadFileBtn = new QPushButton("Pick Avatar");
     connect(loadFileBtn, &QPushButton::released, [this]() { loadProfilePic(); });
 
@@ -58,7 +60,11 @@ SignUpPage::SignUpPage()
             [qLastNameEdit, qFirstNameEdit, userName, password, birthday, this, warning]() {
                 QRegularExpression regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
                 QRegularExpressionMatch match = regex.match(password->text());
-                if (match.hasMatch()) {
+                if ( userName->text() == "" || qFirstNameEdit->text() == "" || qLastNameEdit->text() == "" || password->text() == "" ){
+                    warning->show();
+                    layout->addWidget(warning, 5, 1);
+                    warning->setText("No Empty Spaces");
+                }else if(match.hasMatch() ) {
                     user->username = userName->text().replace(" ", "");
                     user->firstName = qFirstNameEdit->text().replace(" ", "");
                     user->lastName = qLastNameEdit->text().replace(" ", "");
@@ -67,7 +73,7 @@ SignUpPage::SignUpPage()
                     this->signUserUp(password->text().replace(" ", ""));
                 } else {
                     warning->show();
-                    layout->addWidget(warning, 1, 2);
+                    layout->addWidget(warning, 5, 1);
                     warning->setText("Wrong password format");
                 }
             });
@@ -95,14 +101,16 @@ SignUpPage::SignUpPage()
     layout->addWidget(birthdayLabel, 4, 0);
     layout->addWidget(birthday, 4, 1);
 
-    layout->addWidget(profileLabel, 5, 0);
-    layout->addWidget(loadFileBtn, 5, 1);
+    layout->addWidget(profileLabel, 6, 0);
+    layout->addWidget(loadFileBtn, 6, 1);
 
-    layout->addWidget(saveToDatabase, 6, 1);
-    layout->addWidget(showPasswordBtn, 6, 0);
-    layout->addWidget(closeBtn, 6, 2);
+    layout->addWidget(saveToDatabase, 10, 1);
+    layout->addWidget(showPasswordBtn, 1, 2);
+    //    layout->addWidget(closeBtn, 7, 2);
     this->setLayout(layout);
-    this->setFixedSize(600, 300);
+    this->setContentsMargins(50,60,50,60);
+    setWindowTitle("Sign Up");
+
 }
 
 void SignUpPage::loadProfilePic()
@@ -170,4 +178,5 @@ void SignUpPage::uploadToFirebase()
 void SignUpPage::closeAll()
 {
     this->close();
+    //    delete this;
 }
