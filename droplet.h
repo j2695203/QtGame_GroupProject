@@ -12,6 +12,8 @@ class droplet : public QObject, public QGraphicsPixmapItem
     int *hp;
     int *caught;
     QTimer *timer_drop;
+    int dropRate = 50;
+
 
 
 public:
@@ -22,6 +24,7 @@ public:
 
 signals:
 //    void caughtSignal();
+    void speedUp();
 public slots:
     void move_droplet();
 

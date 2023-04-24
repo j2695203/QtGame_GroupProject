@@ -17,7 +17,7 @@ game1scene::game1scene(User *user)
 }
 
 void game1scene::mode_easy(){
-    hardness_born = 1000;
+    hardness_born = 2000;
     hardness_rate = 500;
     playGame(hardness_born);
 }
@@ -147,7 +147,10 @@ void game1scene::restart(){
     for(int i = 0; i < list.size(); i++ ){
         removeItem(list[i]);
     }
-    musicPlayer -> stop();
+
+    if(musicPlayer->isPlaying()){
+        musicPlayer -> stop();
+    }
 
 
 
@@ -156,12 +159,12 @@ void game1scene::restart(){
 
 void game1scene::start(){
     // page 1
-    music = new QMediaPlayer();
-    audioOut = new QAudioOutput();
-    music->setAudioOutput(audioOut);
-    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
-    audioOut->setVolume(100);
-    music->play();
+//    music = new QMediaPlayer();
+//    audioOut = new QAudioOutput();
+//    music->setAudioOutput(audioOut);
+//    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
+//    audioOut->setVolume(100);
+//    music->play();
 
     // level section
     level = new QLabel("Level");
