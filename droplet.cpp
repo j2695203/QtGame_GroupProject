@@ -40,7 +40,7 @@ droplet::droplet(int time, int *hp, int *caught, bool birthday){
 }
 
 void droplet::move_droplet() {
-    if(*hp == 0){
+    if(*hp <= 0){
         timer_drop ->stop();
     }
 
