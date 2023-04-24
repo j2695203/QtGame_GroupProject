@@ -60,10 +60,9 @@ void game1scene::playGame(int time){
     bucketItem = new bucket();
     QGraphicsPixmapItem *cloudItem = new QGraphicsPixmapItem();
 
-//<<<<<<< HEAD
-//    cloudItem->setPixmap((QPixmap(":/cloud.png")).scaled(910, 100));
-//=======
+
     cloudItem -> setPixmap((QPixmap(":/cloud.png")).scaled(910,100));
+    cloudItem -> setOpacity(0.85);
 
     musicPlayer = new QMediaPlayer;
     audioOutput = new QAudioOutput;
@@ -141,6 +140,10 @@ void game1scene::restart(){
     for(int i = 0; i < list.size(); i++ ){
         removeItem(list[i]);
     }
+    musicPlayer -> stop();
+
+
+
     start();
 }
 

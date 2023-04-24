@@ -85,7 +85,7 @@ void Login::pressGuest()
     QGraphicsView *mainView = new QGraphicsView();
     game1scene *scene1 = new game1scene(user);
     mainView->setScene(scene1);
-    mainView->setFixedSize(910, 512);
+    mainView->setFixedSize(910, 485);
     mainView->setHorizontalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
     mainView->setVerticalScrollBarPolicy((Qt::ScrollBarAlwaysOff));
 

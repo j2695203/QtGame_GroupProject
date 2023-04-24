@@ -42,7 +42,7 @@ void droplet::move_droplet() {
         delete this;
     }
 
-    if(yPos > 450 ){
+    else if(yPos > 450 ){
         *hp = *hp - 1;
         this->scene()->removeItem(this);
         delete this;
