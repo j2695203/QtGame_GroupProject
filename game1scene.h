@@ -9,7 +9,7 @@
 #include "bucket.h"
 #include "user.h"
 #include <QtMultimedia/QMediaPlayer>
-//#include <QAudioOutput>
+#include <QAudioOutput>
 
 class game1scene : public QGraphicsScene
 {
@@ -19,7 +19,7 @@ class game1scene : public QGraphicsScene
     int actualScore;
 
     QMediaPlayer *musicPlayer;
-//    QAudioOutput *audioOutput;
+    QAudioOutput *audioOutput;
 
     int *health_count;
     int *droplet_count;

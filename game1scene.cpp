@@ -66,10 +66,11 @@ void game1scene::playGame(int time){
     cloudItem -> setPixmap((QPixmap(":/cloud.png")).scaled(910,100));
 
     musicPlayer = new QMediaPlayer;
-//    audioOutput = new QAudioOutput;
+    audioOutput = new QAudioOutput;
+    musicPlayer -> setAudioOutput(audioOutput);
+    musicPlayer -> setSource(QUrl("qrc:/one_summers_day.mp3"));
 
-    musicPlayer -> setSource(QUrl(":/one_summers_day.mp3"));
-//    audioOutput -> setVolume(100);
+    audioOutput -> setVolume(100);
     musicPlayer -> play();
 
     addItem(bucketItem);
