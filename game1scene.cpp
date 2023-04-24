@@ -111,6 +111,8 @@ void game1scene::addingDroplet() {
 
 void game1scene::gameOver(int s){
 
+    removeItem(bucketItem);
+    delete bucketItem;
     addItem(userSection);
 
 

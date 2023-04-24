@@ -12,8 +12,7 @@ bucket::bucket(QObject *parent)
 
 
 void bucket::keyPressEvent(QKeyEvent *event) {
-    auto xPos = this->x();
-    auto yPos = this->y();
+
 
     if (event -> key() == Qt::Key_Right) {
         this->setX(this->x()+30);
