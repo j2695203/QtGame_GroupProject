@@ -5,6 +5,7 @@
 #include "login.h"
 #include "scoreboard.h"
 
+
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
@@ -13,7 +14,7 @@ int main(int argc, char **argv) {
     QString styleSheet = QLatin1String(styleFile.readAll());
     app.setStyleSheet(styleSheet);
 
-    // jinny start //////////////////////
+
 
     Login *logWindow = new Login();
     logWindow->show();

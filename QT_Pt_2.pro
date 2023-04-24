@@ -1,5 +1,6 @@
 QT += widgets
 QT += network
+QT += multimedia
 
 SOURCES += \
     firebaseauth.cpp \
@@ -32,4 +33,5 @@ HEADERS += \
     user.h
 
 RESOURCES += \
+    application.qrc \
     application.qrc

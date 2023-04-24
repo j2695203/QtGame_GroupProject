@@ -7,15 +7,22 @@
 #include <QWidget>
 #include <QtWidgets>
 #include "bucket.h"
-#include "profile.h"
 #include "user.h"
+#include <QtMultimedia/QMediaPlayer>
+//#include <QAudioOutput>
+
 class game1scene : public QGraphicsScene
 {
     Q_OBJECT
     QGraphicsTextItem *scoreText;
+    QGraphicsTextItem *hpText;
     int actualScore;
 
+    QMediaPlayer *musicPlayer;
+//    QAudioOutput *audioOutput;
+
     int *health_count;
+    int *droplet_count;
 
     QLabel *user_name;
     QPushButton *button_profile;
@@ -60,6 +67,7 @@ public:
 
 signals:
     void end();
+
 
 public slots:
     void addingDroplet();
