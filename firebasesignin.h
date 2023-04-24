@@ -20,11 +20,13 @@ public:
     User *user;
     void setUser(User *user) { this->user = user; }
     bool isLogin = false;
+
 public slots:
     void networkReplyResponse();
     void importUserInfo();
 
 private:
+    QString localID;
     QString apiKey = "AIzaSyBwgJWz_F7Wu_UzKlxw0D8AZCFHAyvKAJc";
     QNetworkAccessManager *networkAccessManager;
     void performPOST(QString &url, QJsonDocument &payload);

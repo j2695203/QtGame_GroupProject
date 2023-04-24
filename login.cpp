@@ -60,7 +60,7 @@ void Login::pressLogin()
         } else {
             connect(&signIn, &FirebaseSignIn::finishedImportUserInfo, this, [this]() {
                 QGraphicsView *mainView = new QGraphicsView();
-
+                qDebug() << user->localID + "login";
                 game1scene *scene1 = new game1scene(user);
                 mainView->setScene(scene1);
                 mainView->setFixedSize(910, 485);

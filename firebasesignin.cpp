@@ -32,7 +32,7 @@ void FirebaseSignIn::networkReplyResponse()
     if (jsonObj.contains("kind") && jsonObj["registered"] == true) {
         qDebug() << "Login Success";
         QString localId = jsonObj["localId"].toString();
-        qDebug() << localId;
+        this->localID = localId;
         networkReply = networkAccessManager->get(QNetworkRequest(
             QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User/" + localId + ".json")));
 
@@ -50,13 +50,14 @@ void FirebaseSignIn::importUserInfo()
     qDebug() << databaseReply;
     QJsonDocument userJsonDoc = QJsonDocument::fromJson(databaseReply.toUtf8());
     QJsonObject userJsonObj = userJsonDoc.object();
+    this->user->localID = this->localID;
     this->user->username = userJsonObj["username"].toString();
     this->user->firstName = userJsonObj["firstname"].toString();
     this->user->lastName = userJsonObj["lastname"].toString();
     this->user->score = userJsonObj["score"].toInt();
     this->user->imageURL = userJsonObj["imageUrl"].toString();
     this->user->birthday = userJsonObj["birthday"].toString();
-    //    this->user->rankScore = userJsonObj["rankScore"].toObject().toVariantMap();
+    this->user->rankScore = userJsonObj["rankScore"].toVariant().toList();
     emit finishedImportUserInfo();
     //    QGraphicsView *mainView = new QGraphicsView();
 

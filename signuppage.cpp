@@ -47,7 +47,7 @@ SignUpPage::SignUpPage()
     QDateEdit *birthday = new QDateEdit();
     birthday->setMinimumDate(QDate(1900, 1, 1));
     birthday->setMaximumDate(QDate::currentDate());
-    birthday->setDisplayFormat("dd/MM/yyyy");
+    birthday->setDisplayFormat("MM/dd/yyyy");
 
     profileLabel = new QLabel("Avatar: ");
     QPushButton *loadFileBtn = new QPushButton("Pick Avatar");
@@ -65,12 +65,14 @@ SignUpPage::SignUpPage()
                     layout->addWidget(warning, 5, 1);
                     warning->setText("No Empty Spaces");
                 }else if(match.hasMatch() ) {
+                    //Check with database username if it username exist
+
                     user->username = userName->text().replace(" ", "");
                     user->firstName = qFirstNameEdit->text().replace(" ", "");
                     user->lastName = qLastNameEdit->text().replace(" ", "");
                     user->birthday = birthday->date().toString();
-                    //Sign up first, then save the user info into realtime database
                     this->signUserUp(password->text().replace(" ", ""));
+
                 } else {
                     warning->show();
                     layout->addWidget(warning, 5, 1);
@@ -120,8 +122,8 @@ void SignUpPage::loadProfilePic()
                                                      "Open a file",
                                                      defaultPath,
                                                      "Images (*.png *.jpg)");
-    QFile file(file_name);
 
+    QFile file(file_name);
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "Failed to open file";
     } else {
@@ -135,19 +137,50 @@ void SignUpPage::loadProfilePic()
 
 void SignUpPage::signUserUp(QString password)
 {
+    QLabel *label = new QLabel();
+    QMovie *movie = new QMovie(":/loader.gif");
+    layout->addWidget(label, 5, 1);
+    label->setMovie(movie);
+    label->show();
+    movie->start();
+
     qDebug() << "Sign user up";
     firebaseAuth->signUserUp(user->username + "@gmail.com", password);
-
-    FirebaseAuth::connect(firebaseAuth->networkAccessManager,
-                          &QNetworkAccessManager::finished,
-                          this,
-                          &SignUpPage::uploadToStorage);
+    connect(firebaseAuth, &FirebaseAuth::isUsernameExist, this, [=](bool isExist = false) {
+        if (isExist) {
+            user->username = "";
+            user->firstName = "";
+            user->lastName = "";
+            user->birthday = "";
+            qDebug() << "received username exist signal";
+            QLabel *usernameExistLabel = new QLabel("Username exist");
+            usernameExistLabel->setStyleSheet("color: red");
+            layout->addWidget(usernameExistLabel, 0, 2);
+        } else {
+            FirebaseAuth::connect(firebaseAuth->networkAccessManager,
+                                  &QNetworkAccessManager::finished,
+                                  this,
+                                  &SignUpPage::uploadToStorage);
+        }
+    });
 }
 
 void SignUpPage::uploadToStorage()
 {
     qDebug() << "Finished Sign user up";
     qDebug() << "Upload to storage";
+
+    if (fileData.isEmpty()) {
+        QFile file(":/msd-logo.jpeg");
+        qDebug() << file.fileName();
+        if (!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "Failed to open file";
+        }
+        fileData = file.readAll();
+        QFileInfo fileInfo(file);
+        fileType = fileInfo.completeSuffix();
+        file.close();
+    }
     firebaseStorage->uploadToStorage(fileData, fileType);
 
     FirebaseStorage::connect(firebaseStorage->networkManager,
@@ -163,12 +196,6 @@ void SignUpPage::uploadToFirebase()
     dbHelper->uploadToDatabase(user);
     qDebug() << "Finished upload to database";
 
-    QLabel *label = new QLabel();
-    QMovie *movie = new QMovie(":/loader.gif");
-    layout->addWidget(label, 5, 1);
-    label->setMovie(movie);
-    label->show();
-    movie->start();
     connect(dbHelper->getNetworkManager(),
             &QNetworkAccessManager::finished,
             this,
@@ -178,5 +205,4 @@ void SignUpPage::uploadToFirebase()
 void SignUpPage::closeAll()
 {
     this->close();
-    //    delete this;
 }

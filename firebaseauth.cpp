@@ -26,8 +26,15 @@ void FirebaseAuth::networkReplyResponse()
     QJsonDocument jsonDoc = QJsonDocument::fromJson(reply.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
 
-    this->user->localID = jsonObj["localId"].toString();
-    qDebug() << this->user->localID;
+    if (jsonObj.contains("error")) {
+        qDebug() << "The username exist & code: 400";
+        emit isUsernameExist(true);
+    } else {
+        this->user->localID = jsonObj["localId"].toString();
+        qDebug() << this->user->localID;
+        emit isUsernameExist(false);
+    }
+
     networkReply->deleteLater();
 }
 

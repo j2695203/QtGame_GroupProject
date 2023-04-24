@@ -30,6 +30,7 @@ private:
     QNetworkReply *networkReply;
 
 signals:
+    void isUsernameExist(bool isExist);
 };
 
 #endif // FIREBASEAUTH_H

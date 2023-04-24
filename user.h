@@ -2,6 +2,7 @@
 #define USER_H
 
 #include <QObject>
+#include "QtCore/qvariant.h"
 
 class User : public QObject
 {
@@ -14,7 +15,7 @@ public:
     QString imageURL;
     int score = 0;
     QString birthday;
-    //    QList<int> rankScore;
+    QList<QVariant> rankScore;
 
 signals:
 };

@@ -9,11 +9,6 @@ class scoreBoard : public QWidget
     Q_OBJECT
 
     QLabel *global;
-    //    QLabel *no1;
-    //    QLabel *no2;
-    //    QLabel *no3;
-    //    QLabel *no4;
-    //    QLabel *no5;
 
     QLabel *user;
     QLabel *usernameScore;

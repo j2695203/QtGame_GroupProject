@@ -9,9 +9,10 @@ FirebaseDBHelper::FirebaseDBHelper(QObject *parent)
 void FirebaseDBHelper::uploadToDatabase(User *user)
 {
     QVariantMap userChildDetail;
-    //    QVariantList userRankScore;
-    //    foreach (int score, user->rankScore) {
-    //        userRankScore.append(score);
+    QVariantList userRankScore;
+
+    //    foreach (auto score, user->rankScore) {
+    userRankScore.append("");
     //    }
     userChildDetail["firstname"] = user->firstName;
     userChildDetail["lastname"] = user->lastName;
@@ -19,7 +20,7 @@ void FirebaseDBHelper::uploadToDatabase(User *user)
     userChildDetail["score"] = user->score;
     userChildDetail["imageUrl"] = user->imageURL;
     userChildDetail["birthday"] = user->birthday;
-    //    userChildDetail["rankScore"] = userRankScore;
+    userChildDetail["rankhistory"] = userRankScore;
 
     QVariantMap userParent;
     userParent[user->localID] = userChildDetail;
@@ -57,12 +58,16 @@ QMap<QString, int> FirebaseDBHelper::sortRankScore()
 
 void FirebaseDBHelper::setScore(User *user, int score)
 {
-    QVariantMap userNewScore;
-    userNewScore["score"] = score;
-    QJsonDocument jsonDoc = QJsonDocument::fromVariant(userNewScore);
-    QNetworkRequest userRequest(
-        QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User/" + user->localID + ".json"));
-    userRequest.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+    if (user->username != "") {
+        QVariantMap userNewScore;
+        userNewScore["score"] = score;
 
-    this->networkManager->sendCustomRequest(userRequest, "PATCH", jsonDoc.toJson());
+        QJsonDocument jsonDoc = QJsonDocument::fromVariant(userNewScore);
+
+        QNetworkRequest userRequest(QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User/"
+                                         + user->localID + ".json"));
+        userRequest.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+
+        this->networkManager->sendCustomRequest(userRequest, "PATCH", jsonDoc.toJson());
+    }
 }

@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
-
+    //    app.setStyle(Q);
     QFile styleFile(":style.css");
     styleFile.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(styleFile.readAll());

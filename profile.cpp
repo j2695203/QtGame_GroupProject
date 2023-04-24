@@ -9,12 +9,12 @@ profile::profile(User *user)
     this->user = user;
     if (user->username != "") {
         username->setText("Username: " + user->username);
-
         QUrl url(user->imageURL);
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         QNetworkReply *reply = manager->get(QNetworkRequest(url));
-        pic = new QLabel("Loading...");
-        mainLayout->addWidget(pic);
+        dialog = new QProgressDialog();
+
+        connect(reply, &QNetworkReply::downloadProgress, this, &profile::downloadProgress);
         connect(reply, &QNetworkReply::finished, [=]() {
             if (reply->error() == QNetworkReply::NoError) {
                 QByteArray data = reply->readAll();
@@ -22,7 +22,8 @@ profile::profile(User *user)
 
                 pixmap.loadFromData(data);
 
-                pic->setPixmap(pixmap.scaled(100, 100));
+                pic->setPixmap(pixmap.scaledToHeight(100));
+                pic->setPixmap(pixmap.scaledToWidth(200));
                 firstName->setText("First name: " + user->firstName);
                 lastName->setText("Last name: " + user->lastName);
                 birthday->setText("Birthday: " + user->birthday);
@@ -38,9 +39,8 @@ profile::profile(User *user)
                 mainLayout->addWidget(birthday);
                 mainLayout->addWidget(firstName);
                 mainLayout->addWidget(lastName);
-
-                // set layout to window
             }
+            setLayout(mainLayout);
             reply->deleteLater();
             manager->deleteLater();
         });
@@ -49,6 +49,14 @@ profile::profile(User *user)
         username->setText("Username: Guest");
         mainLayout->addWidget(title, 0, Qt::AlignCenter);
         mainLayout->addWidget(username);
+        setLayout(mainLayout);
     }
-    setLayout(mainLayout);
+}
+
+void profile::downloadProgress(qint64 ist, qint64 max)
+{
+    dialog->setRange(0, max);
+    dialog->setValue(ist);
+    if (ist == max)
+        dialog->close();
 }
