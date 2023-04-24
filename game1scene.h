@@ -10,6 +10,7 @@
 #include "user.h"
 #include <QtMultimedia/QMediaPlayer>
 #include <QAudioOutput>
+#include <QDateTime>
 
 class game1scene : public QGraphicsScene
 {
@@ -20,6 +21,7 @@ class game1scene : public QGraphicsScene
 
     QMediaPlayer *musicPlayer;
     QAudioOutput *audioOutput;
+    QDateTime *currentDate;
 
     int *health_count;
     int *droplet_count;
