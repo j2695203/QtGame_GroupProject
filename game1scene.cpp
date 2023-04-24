@@ -12,7 +12,8 @@ game1scene::game1scene(User *user)
 {
     this->user = user;
     // page 1
-    start();
+        start();
+
 }
 
 void game1scene::mode_easy(){
@@ -34,13 +35,14 @@ void game1scene::mode_hard(){
 void game1scene::playGame(int time){
     // page 2
 
+
 //    delete levelSection;
     removeItem(levelSection);
     removeItem(userSection);
 
     health_count = new int(10);
     droplet_count = new int;
-    actualScore = *new int;
+
 
     scoreText = new QGraphicsTextItem();
     scoreText -> setPlainText(QString("Score: ") + QVariant(actualScore).toString());
@@ -91,12 +93,14 @@ void game1scene::playGame(int time){
 }
 
 void game1scene::addingDroplet() {
+
     droplet *dropletItem = new droplet(hardness_rate, health_count, droplet_count);
     addItem(dropletItem);
     actualScore = *droplet_count * 5;
 
     scoreText -> setPlainText(QString("Score: ") + QVariant(actualScore).toString());
     hpText -> setPlainText(QString("HP: ") + QVariant(*health_count).toString());
+
 
     if(*health_count == 0){
         dropletGeneration->stop();
@@ -107,6 +111,8 @@ void game1scene::addingDroplet() {
 
 void game1scene::gameOver(int s){
 
+    removeItem(bucketItem);
+    delete bucketItem;
     addItem(userSection);
 
 
@@ -132,6 +138,7 @@ void game1scene::gameOver(int s){
     overSection->setPos(380,200);
 
     connect(button_restart, &QPushButton::clicked, this, &game1scene::restart);
+    connect(button_close, &QPushButton::clicked, this, &game1scene::close);
 
 }
 
@@ -149,7 +156,12 @@ void game1scene::restart(){
 
 void game1scene::start(){
     // page 1
-
+    music = new QMediaPlayer();
+    audioOut = new QAudioOutput();
+    music->setAudioOutput(audioOut);
+    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
+    audioOut->setVolume(100);
+    music->play();
 
     // level section
     level = new QLabel("Level");
@@ -171,11 +183,15 @@ void game1scene::start(){
 
     // user section
     qDebug() << "dsdasdsa123" + user->username + "dsdasdasda";
+
     if (user->username == "") {
         user_name = new QLabel("guest");
     } else {
         user_name = new QLabel(user->username);
     }
+
+
+
 
     button_profile = new QPushButton("Profile");
 
@@ -184,6 +200,11 @@ void game1scene::start(){
 
     userHLayout = new QHBoxLayout();
 
+    if(isBirthday){
+        birthday = new QLabel("Happy Birthday!");
+        userHLayout->addWidget(birthday);
+    }
+
     userHLayout->addWidget(user_name);
     userHLayout->addWidget(button_profile);
     userHLayout->addWidget(button_score_board);
@@ -191,7 +212,12 @@ void game1scene::start(){
     userBox = new QGroupBox();
     userBox->setLayout(userHLayout);
     userSection = addWidget(userBox);
-    userSection->setPos(540,0);
+    if(isBirthday){
+        userSection->setPos(450,0);
+    }
+    else{
+        userSection->setPos(540,0);
+    }
 
 
     setBackgroundBrush(QBrush(QImage(":/spirited-awaybr-disneyscreencaps.com-1204.jpg").scaledToHeight(600).scaledToWidth(910)));
@@ -203,6 +229,7 @@ void game1scene::start(){
     connect(button_profile, &QPushButton::clicked, this, &game1scene::openProfile);
     connect(button_score_board, &QPushButton::clicked, this, &game1scene::openRank);
     connect(button_signout, &QPushButton::clicked, this, &game1scene::signOut);
+
 
 }
 
@@ -240,7 +267,18 @@ void game1scene::signOut(){
     }
     this->clear();
 
+}
 
+void game1scene::close(){
+    QList list = items();
+    for(auto &i : list){
+        removeItem(i);
+    }
+    QList view = views();
+    for(auto v : view){
+        v->close();
+    }
+    this->clear();
 }
 
 

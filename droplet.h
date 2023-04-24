@@ -16,7 +16,9 @@ class droplet : public QObject, public QGraphicsPixmapItem
 
 public:
     explicit droplet(QObject *parent = nullptr);
+
     droplet(int time, int *hp, int *caught);
+
 
 signals:
 //    void caughtSignal();

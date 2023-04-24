@@ -6,6 +6,8 @@
 #include <QObject>
 #include <QWidget>
 #include <QtWidgets>
+#include <QMediaPlayer>>
+#include <QAudioOutput>
 #include "bucket.h"
 #include "user.h"
 #include <QtMultimedia/QMediaPlayer>
@@ -26,6 +28,8 @@ class game1scene : public QGraphicsScene
     int *health_count;
     int *droplet_count;
 
+    QLabel *birthday;
+    bool isBirthday = true;
     QLabel *user_name;
     QPushButton *button_profile;
     QPushButton *button_score_board;
@@ -59,6 +63,10 @@ class game1scene : public QGraphicsScene
 
     User *user = new User;
 
+
+    QMediaPlayer *music;
+    QAudioOutput *audioOut;
+
 public:
     game1scene(User *user);
     void playGame(int time);
@@ -80,6 +88,7 @@ public slots:
     void openProfile();
     void openRank();
     void signOut();
+    void close();
 };
 
 #endif // GAME1SCENE_H

@@ -1,6 +1,7 @@
 #include "bucket.h"
+#include <QGraphicsScene>
 
-bucket::bucket()
+bucket::bucket(QObject *parent)
 {
 
     this -> setPixmap((QPixmap(":/IMG_2725.PNG")).scaled(80,135));
@@ -11,16 +12,14 @@ bucket::bucket()
 
 
 void bucket::keyPressEvent(QKeyEvent *event) {
-    auto xPos = this->x();
-    auto yPos = this->y();
+
 
     if (event -> key() == Qt::Key_Right) {
-        xPos += 40;
-        this->setPos(xPos, yPos);
+        this->setX(this->x()+30);
     }
     if (event -> key() == Qt::Key_Left) {
-        xPos -= 40;
-        this->setPos(xPos, yPos);
+
+        this->setX(this->x()-30);
     }
     if (x() > 900) {
         this -> setPos (-90, 370);

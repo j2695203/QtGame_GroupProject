@@ -8,6 +8,7 @@
 #include <QVariantMap>
 #include "user.h"
 #include <firebasedbhelper.h>
+
 class FirebaseSignIn : public QObject
 {
     Q_OBJECT
