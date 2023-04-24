@@ -1,6 +1,6 @@
 QT += widgets
 QT += network
-
+QT += multimedia multimediawidgets
 SOURCES += \
     firebaseauth.cpp \
     firebasedbhelper.cpp \

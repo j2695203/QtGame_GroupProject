@@ -6,5 +6,7 @@
         <file>water.gif</file>
         <file>style.css</file>
         <file>loader.gif</file>
+        <file>example.mp3</file>
+        <file>sample-5s.mp4</file>
     </qresource>
 </RCC>
