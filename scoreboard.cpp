@@ -30,8 +30,10 @@ scoreBoard::scoreBoard(User *user)
     layout->addWidget(userLabel, 0, Qt::AlignCenter);
 
     foreach (auto i, user->rankScore) {
-        personalHistoryRankLabel = new QLabel(i.toString());
-        layout->addWidget(personalHistoryRankLabel, 0, Qt::AlignCenter);
+        if (i != "") {
+            personalHistoryRankLabel = new QLabel(i.toString());
+            layout->addWidget(personalHistoryRankLabel, 0, Qt::AlignCenter);
+        }
     }
 
     layout->setContentsMargins(100, 30, 100, 30);
