@@ -79,6 +79,12 @@ void game1scene::playGame(int time){
         addItem(scoreText);
 
         addItem(cloudItem);
+    musicPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    musicPlayer -> setAudioOutput(audioOutput);
+    musicPlayer -> setSource(QUrl("qrc:/one_summers_day.mp3"));
+    audioOutput -> setVolume(100);
+    musicPlayer -> play();
 
         bucketItem->setFlag(QGraphicsItem::ItemIsFocusable);
 
@@ -156,13 +162,13 @@ void game1scene::restart(){
 }
 
 void game1scene::start(){
-    // page 1
-    music = new QMediaPlayer();
-    audioOut = new QAudioOutput();
-    music->setAudioOutput(audioOut);
-    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
-    audioOut->setVolume(100);
-    music->play();
+//     page 1
+//    music = new QMediaPlayer();
+//    audioOut = new QAudioOutput();
+//    music->setAudioOutput(audioOut);
+//    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
+//    audioOut->setVolume(100);
+//    music->play();
 
     // level section
     level = new QLabel("Level");
@@ -199,6 +205,33 @@ void game1scene::start(){
     button_signout = new QPushButton("Sign out");
 
     userHLayout = new QHBoxLayout();
+
+    QString dateQstring = currentDate->currentDateTime().date().toString();
+    std::string toBeDelimited = dateQstring.toStdString();
+    const char delim = ' ';
+
+    std::vector<std::string> currentDateVector;
+    std::stringstream ss(toBeDelimited);
+
+    while(std::getline(ss, toBeDelimited, delim)) {
+        currentDateVector.push_back(toBeDelimited);
+    }
+
+    QString bday = user->birthday;
+    std::string bdaystr = bday.toStdString();
+
+    std::vector<std::string> birthdayVector;
+    std::stringstream ss1(bdaystr);
+
+    while(std::getline(ss1, bdaystr, delim)) {
+        birthdayVector.push_back(bdaystr);
+    }
+
+    if (currentDateVector[1] == birthdayVector[1] && currentDateVector[2] == birthdayVector[2]) {
+        isBirthday = true;
+    }
+
+
 
     if(isBirthday){
         birthday = new QLabel("Happy Birthday!");
