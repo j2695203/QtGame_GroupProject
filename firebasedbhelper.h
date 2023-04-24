@@ -22,8 +22,8 @@ public:
     QNetworkAccessManager *getNetworkManager() { return networkManager; }
     void uploadToDatabase(User *user);
     QMap<QString, int> sortRankScore();
-
     void setScore(User *user, int score);
+    void addHistoryScore(User *user, int score);
 
 private:
     QNetworkAccessManager *networkManager;

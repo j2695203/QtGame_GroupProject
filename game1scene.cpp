@@ -126,6 +126,8 @@ void game1scene::gameOver(int s){
     if (user->score < s)
         dbHelper.setScore(user, s);
 
+    dbHelper.addHistoryScore(user, s);
+
     score = new QLabel(finalScore);
     button_restart = new QPushButton("Restart");
     button_close = new QPushButton("Close");
@@ -163,12 +165,6 @@ void game1scene::restart(){
 
 void game1scene::start(){
 //     page 1
-//    music = new QMediaPlayer();
-//    audioOut = new QAudioOutput();
-//    music->setAudioOutput(audioOut);
-//    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
-//    audioOut->setVolume(100);
-//    music->play();
 
     // level section
     level = new QLabel("Level");
@@ -217,23 +213,23 @@ void game1scene::start(){
         currentDateVector.push_back(toBeDelimited);
     }
 
-    QString bday = user->birthday;
-    std::string bdaystr = bday.toStdString();
+    if (user->birthday != "") {
+        QString bday = user->birthday;
+        std::string bdaystr = bday.toStdString();
 
-    std::vector<std::string> birthdayVector;
-    std::stringstream ss1(bdaystr);
+        std::vector<std::string> birthdayVector;
+        std::stringstream ss1(bdaystr);
 
-    while(std::getline(ss1, bdaystr, delim)) {
-        birthdayVector.push_back(bdaystr);
+        while (std::getline(ss1, bdaystr, delim)) {
+            birthdayVector.push_back(bdaystr);
+        }
+
+        if (currentDateVector[1] == birthdayVector[1] && currentDateVector[2] == birthdayVector[2]) {
+            isBirthday = true;
+        }
     }
 
-    if (currentDateVector[1] == birthdayVector[1] && currentDateVector[2] == birthdayVector[2]) {
-        isBirthday = true;
-    }
-
-
-
-    if(isBirthday){
+    if (isBirthday) {
         birthday = new QLabel("Happy Birthday!");
         userHLayout->addWidget(birthday);
     }
@@ -280,7 +276,7 @@ void game1scene::openProfile()
 }
 
 void game1scene::openRank(){
-    scoreBoard *score_board = new scoreBoard();
+    scoreBoard *score_board = new scoreBoard(user);
     score_board->setWindowTitle("Score Board");
     score_board->show();
 

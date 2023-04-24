@@ -1,7 +1,8 @@
 * {
     background-color: DarkSlateGray;
     color: Azure;
-    font-family: "Monocraft", Times, serif;
+    font-family: "impact", Times, serif;
+
 }
 
 QPushButton {
@@ -10,7 +11,7 @@ QPushButton {
     color: white;
     padding: 10px 10px;
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
     border-radius: 8px;
 /*    box-shadow: 10px 5px 5px red;*/
 }
