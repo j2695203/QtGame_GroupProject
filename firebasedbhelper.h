@@ -8,9 +8,10 @@
 #include <QNetworkReply>
 #include <QObject>
 #include <QVariantMap>
+#include <QWidget>
 #include <QtConcurrent/QtConcurrent>
 #include <user.h>
-//ewqeqw
+
 class FirebaseDBHelper : public QObject
 {
     Q_OBJECT
@@ -23,7 +24,6 @@ public:
     QMap<QString, int> sortRankScore();
 
     void setScore(User *user, int score);
-
 
 private:
     QNetworkAccessManager *networkManager;

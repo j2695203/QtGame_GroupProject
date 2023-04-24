@@ -1,10 +1,14 @@
 #ifndef GAME1SCENE_H
 #define GAME1SCENE_H
 
+#include <QAudioOutput>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include <QMediaPlayer>
 #include <QObject>
 #include <QWidget>
+
+#include "firebasedbhelper.h"
 #include <QtWidgets>
 #include <QMediaPlayer>
 #include <QAudioOutput>
@@ -63,8 +67,9 @@ class game1scene : public QGraphicsScene
 
     QTimer *dropletGeneration;
 
+    //Firebase stuff
     User *user = new User;
-
+    FirebaseDBHelper dbHelper;
 
     QMediaPlayer *music;
     QAudioOutput *audioOut;

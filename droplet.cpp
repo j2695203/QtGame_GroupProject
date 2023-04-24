@@ -17,6 +17,8 @@ droplet::droplet(QObject *parent)
 droplet::droplet(int time, int *hp, int *caught, bool birthday){
     this->hp = hp;
     this ->caught = caught;
+    time -= (*caught / 5)*50;
+
     int random_number = arc4random() % 900;
     if (birthday) {
         this -> setPixmap((QPixmap(":/IMG_2731.PNG")).scaled(30,30));
@@ -28,6 +30,10 @@ droplet::droplet(int time, int *hp, int *caught, bool birthday){
     timer_drop = new QTimer(this);
     connect(timer_drop,  &QTimer::timeout, this, &droplet::move_droplet);
     timer_drop->start(time);
+
+
+
+
 }
 
 void droplet::move_droplet() {
@@ -40,11 +46,14 @@ void droplet::move_droplet() {
         timer_drop ->stop();
     }
 
+    qDebug() << dropRate;
+
     auto yPos = this ->y();
     yPos += 10;
     this -> setPos(x(), yPos);
 
     if (collidingItems().size() > 0) {
+
         receivedOutput = new QAudioOutput;
         received = new QMediaPlayer;
         *caught += 1;
@@ -52,6 +61,9 @@ void droplet::move_droplet() {
         received->setSource(QUrl("qrc:/bell.wav"));
         receivedOutput->setVolume(0.1);
         received->play();
+
+        *caught += 1;
+
         this->scene()->removeItem(this);
         delete this;
     }

@@ -41,57 +41,73 @@ game1scene::game1scene(User *user)
 
 }
 
+
 void game1scene::mode_easy(){
-    hardness_born = 1000;
+    hardness_born = 2000;
     hardness_rate = 500;
     playGame(hardness_born);
+
 }
-void game1scene::mode_medium(){
-    hardness_born = 750;
-    hardness_rate = 250;
-    playGame(hardness_born);
+void game1scene::mode_medium()
+{
+        hardness_born = 200;
+        hardness_rate = 550;
+        playGame(hardness_born);
 }
-void game1scene::mode_hard(){
-    hardness_born = 500;
-    hardness_rate = 150;
-    playGame(hardness_born);
+void game1scene::mode_hard()
+{
+        hardness_born = 500;
+        hardness_rate = 70;
+        playGame(hardness_born);
 }
 
 void game1scene::playGame(int time){
-    // page 2
+        // page 2
 
+        removeItem(levelSection);
+        removeItem(userSection);
 
-//    delete levelSection;
-    removeItem(levelSection);
-    removeItem(userSection);
+        health_count = new int(10);
+        droplet_count = new int;
 
-    health_count = new int(10);
-    droplet_count = new int;
+        scoreText = new QGraphicsTextItem();
+        scoreText->setPlainText(QString("Score: ") + QVariant(actualScore).toString());
+        scoreText->setDefaultTextColor("black");
+        scoreText->setScale(2);
+        scoreText->setPos(30, 20);
+        scoreText->setZValue(1);
 
+        hpText = new QGraphicsTextItem();
+        hpText->setPlainText(QString("HP: ") + QVariant(*health_count).toString());
+        hpText->setDefaultTextColor("blue");
+        hpText->setScale(2);
+        hpText->setPos(30, 48);
+        hpText->setZValue(1);
 
-    scoreText = new QGraphicsTextItem();
-    scoreText -> setPlainText(QString("Score: ") + QVariant(actualScore).toString());
-    scoreText -> setDefaultTextColor("black");
-    scoreText -> setScale(2);
-    scoreText -> setPos(30, 20);
-    scoreText -> setZValue(1);
+        bucketItem = new bucket();
+        QGraphicsPixmapItem *cloudItem = new QGraphicsPixmapItem();
 
-    hpText = new QGraphicsTextItem();
-    hpText -> setPlainText(QString("HP: ") + QVariant(*health_count).toString());
-    hpText -> setDefaultTextColor("blue");
-    hpText -> setScale(2);
-    hpText -> setPos(30, 48);
-    hpText -> setZValue(1);
+        cloudItem->setPixmap((QPixmap(":/cloud.png")).scaled(910, 100));
+        cloudItem->setOpacity(0.85);
 
+        musicPlayer = new QMediaPlayer;
+        audioOutput = new QAudioOutput;
+        musicPlayer->setAudioOutput(audioOutput);
+        musicPlayer->setSource(QUrl("qrc:/one_summers_day.mp3"));
 
-    bucketItem = new bucket();
-    QGraphicsPixmapItem *cloudItem = new QGraphicsPixmapItem();
+        audioOutput->setVolume(100);
+        musicPlayer->play();
 
+        addItem(bucketItem);
 
     cloudItem -> setPixmap((QPixmap(":/cloud.png")).scaled(910,100));
     cloudItem -> setOpacity(0.85);
-    cloudItem -> setY(-50);
+        addItem(hpText);
 
+
+        addItem(scoreText);
+
+        addItem(cloudItem);
     musicPlayer = new QMediaPlayer;
     audioOutput = new QAudioOutput;
     musicPlayer -> setAudioOutput(audioOutput);
@@ -99,22 +115,13 @@ void game1scene::playGame(int time){
     audioOutput -> setVolume(1);
     musicPlayer -> play();
 
-    addItem(bucketItem);
+        bucketItem->setFlag(QGraphicsItem::ItemIsFocusable);
 
-    addItem(hpText);
+        bucketItem->setFocus();
 
-    addItem(scoreText);
-
-    addItem(cloudItem);
-
-
-    bucketItem -> setFlag(QGraphicsItem::ItemIsFocusable);
-
-    bucketItem -> setFocus();
-
-    dropletGeneration = new QTimer(this);
-    connect(dropletGeneration, &QTimer::timeout, this, &game1scene::addingDroplet);
-    dropletGeneration->start(time);
+        dropletGeneration = new QTimer(this);
+        connect(dropletGeneration, &QTimer::timeout, this, &game1scene::addingDroplet);
+        dropletGeneration->start(time);
 }
 
 void game1scene::addingDroplet() {
@@ -144,6 +151,10 @@ void game1scene::gameOver(int s){
     over = new QLabel("Game over");
     QString finalScore = "Score : ";
     finalScore.append(std::to_string(s));
+
+    if (user->score < s)
+        dbHelper.setScore(user, s);
+
     score = new QLabel(finalScore);
     button_restart = new QPushButton("Restart");
     button_close = new QPushButton("Close");
@@ -172,7 +183,10 @@ void game1scene::restart(){
     for(int i = 0; i < list.size(); i++ ){
         removeItem(list[i]);
     }
-    musicPlayer -> stop();
+
+    if(musicPlayer->isPlaying()){
+        musicPlayer -> stop();
+    }
 
 
 
@@ -180,6 +194,9 @@ void game1scene::restart(){
 }
 
 void game1scene::start(){
+
+
+    // page 1
 
     // level section
     level = new QLabel("Level");
@@ -200,7 +217,6 @@ void game1scene::start(){
     levelSection->setPos(380,200);
 
     // user section
-    qDebug() << "dsdasdsa123" + user->username + "dsdasdasda";
 
     if (user->username == "") {
         user_name = new QLabel("guest");

@@ -21,6 +21,11 @@ class profile : public QWidget
 public:
     profile(User *user);
 
+public slots:
+    void downloadProgress(qint64 ist, qint64 max);
+
+private:
+    QProgressDialog *dialog;
 signals:
 };
 
