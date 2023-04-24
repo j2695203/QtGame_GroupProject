@@ -9,16 +9,25 @@
 #include <QMediaPlayer>>
 #include <QAudioOutput>
 #include "bucket.h"
-#include "profile.h"
 #include "user.h"
+#include <QtMultimedia/QMediaPlayer>
+#include <QAudioOutput>
+
 class game1scene : public QGraphicsScene
 {
     Q_OBJECT
     QGraphicsTextItem *scoreText;
+    QGraphicsTextItem *hpText;
     int actualScore;
 
-    int *health_count;
+    QMediaPlayer *musicPlayer;
+    QAudioOutput *audioOutput;
 
+    int *health_count;
+    int *droplet_count;
+
+    QLabel *birthday;
+    bool isBirthday = true;
     QLabel *user_name;
     QPushButton *button_profile;
     QPushButton *button_score_board;
@@ -67,6 +76,7 @@ public:
 signals:
     void end();
 
+
 public slots:
     void addingDroplet();
     void mode_easy();
@@ -76,6 +86,7 @@ public slots:
     void openProfile();
     void openRank();
     void signOut();
+    void close();
 };
 
 #endif // GAME1SCENE_H

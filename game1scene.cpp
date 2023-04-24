@@ -5,6 +5,9 @@
 #include "login.h"
 #include <iostream>
 
+
+
+
 game1scene::game1scene(User *user)
 {
     this->user = user;
@@ -38,22 +41,42 @@ void game1scene::playGame(int time){
     removeItem(userSection);
 
     health_count = new int(10);
+    droplet_count = new int;
+
 
     scoreText = new QGraphicsTextItem();
-
-    scoreText = this->addText(QString("Score: ") + QVariant(actualScore).toString());
+    scoreText -> setPlainText(QString("Score: ") + QVariant(actualScore).toString());
     scoreText -> setDefaultTextColor("black");
     scoreText -> setScale(2);
     scoreText -> setPos(30, 20);
     scoreText -> setZValue(1);
 
+    hpText = new QGraphicsTextItem();
+    hpText -> setPlainText(QString("HP: ") + QVariant(*health_count).toString());
+    hpText -> setDefaultTextColor("blue");
+    hpText -> setScale(2);
+    hpText -> setPos(30, 48);
+    hpText -> setZValue(1);
+
 
     bucketItem = new bucket();
     QGraphicsPixmapItem *cloudItem = new QGraphicsPixmapItem();
 
-    cloudItem->setPixmap((QPixmap(":/cloud.png")).scaled(910, 100));
+
+    cloudItem -> setPixmap((QPixmap(":/cloud.png")).scaled(910,100));
+    cloudItem -> setOpacity(0.85);
+
+    musicPlayer = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    musicPlayer -> setAudioOutput(audioOutput);
+    musicPlayer -> setSource(QUrl("qrc:/one_summers_day.mp3"));
+
+    audioOutput -> setVolume(100);
+    musicPlayer -> play();
 
     addItem(bucketItem);
+
+    addItem(hpText);
 
     addItem(scoreText);
 
@@ -70,12 +93,18 @@ void game1scene::playGame(int time){
 }
 
 void game1scene::addingDroplet() {
-//    droplet *dropletItem = new droplet(hardness_rate, health_count);
-    addItem(new droplet(hardness_rate, health_count));
+
+    droplet *dropletItem = new droplet(hardness_rate, health_count, droplet_count);
+    addItem(dropletItem);
+    actualScore = *droplet_count * 5;
+
+    scoreText -> setPlainText(QString("Score: ") + QVariant(actualScore).toString());
+    hpText -> setPlainText(QString("HP: ") + QVariant(*health_count).toString());
+
 
     if(*health_count == 0){
         dropletGeneration->stop();
-        gameOver(100);
+        gameOver(actualScore);
     }
 
 }
@@ -107,6 +136,7 @@ void game1scene::gameOver(int s){
     overSection->setPos(380,200);
 
     connect(button_restart, &QPushButton::clicked, this, &game1scene::restart);
+    connect(button_close, &QPushButton::clicked, this, &game1scene::close);
 
 }
 
@@ -115,6 +145,10 @@ void game1scene::restart(){
     for(int i = 0; i < list.size(); i++ ){
         removeItem(list[i]);
     }
+    musicPlayer -> stop();
+
+
+
     start();
 }
 
@@ -147,11 +181,15 @@ void game1scene::start(){
 
     // user section
     qDebug() << "dsdasdsa123" + user->username + "dsdasdasda";
+
     if (user->username == "") {
         user_name = new QLabel("guest");
     } else {
         user_name = new QLabel(user->username);
     }
+
+
+
 
     button_profile = new QPushButton("Profile");
 
@@ -160,6 +198,11 @@ void game1scene::start(){
 
     userHLayout = new QHBoxLayout();
 
+    if(isBirthday){
+        birthday = new QLabel("Happy Birthday!");
+        userHLayout->addWidget(birthday);
+    }
+
     userHLayout->addWidget(user_name);
     userHLayout->addWidget(button_profile);
     userHLayout->addWidget(button_score_board);
@@ -167,10 +210,16 @@ void game1scene::start(){
     userBox = new QGroupBox();
     userBox->setLayout(userHLayout);
     userSection = addWidget(userBox);
-    userSection->setPos(540,0);
+    if(isBirthday){
+        userSection->setPos(450,0);
+    }
+    else{
+        userSection->setPos(540,0);
+    }
 
-    setBackgroundBrush(QBrush(QImage(":/background.jpg").scaledToHeight(512).scaledToWidth(910)));
-    setSceneRect(0,0,908,510);
+
+    setBackgroundBrush(QBrush(QImage(":/spirited-awaybr-disneyscreencaps.com-1204.jpg").scaledToHeight(600).scaledToWidth(910)));
+    setSceneRect(0,0,910,500);
 
     connect(button_easy, &QPushButton::clicked, this, &game1scene::mode_easy);
     connect(button_medium, &QPushButton::clicked, this, &game1scene::mode_medium);
@@ -178,6 +227,7 @@ void game1scene::start(){
     connect(button_profile, &QPushButton::clicked, this, &game1scene::openProfile);
     connect(button_score_board, &QPushButton::clicked, this, &game1scene::openRank);
     connect(button_signout, &QPushButton::clicked, this, &game1scene::signOut);
+
 
 }
 
@@ -215,7 +265,18 @@ void game1scene::signOut(){
     }
     this->clear();
 
+}
 
+void game1scene::close(){
+    QList list = items();
+    for(auto &i : list){
+        removeItem(i);
+    }
+    QList view = views();
+    for(auto v : view){
+        v->close();
+    }
+    this->clear();
 }
 
 

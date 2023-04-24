@@ -44,8 +44,6 @@ public slots:
 
 
 private:
-    SignUpPage signUpPage;
-
     FirebaseSignIn signIn;
 };
 
