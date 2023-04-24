@@ -63,8 +63,6 @@ void droplet::move_droplet() {
                 receivedOutput->setVolume(0.1);
                 received->play();
 
-                *caught += 1;
-
                 this->scene()->removeItem(this);
                 delete this;
             }
