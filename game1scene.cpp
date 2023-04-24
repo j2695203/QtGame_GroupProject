@@ -14,20 +14,20 @@ game1scene::game1scene(User *user)
 
 void game1scene::mode_easy()
 {
-    hardness_born = 300;
-    hardness_rate = 550;
+    hardness_born = 1500;
+    hardness_rate = 600;
     playGame(hardness_born);
 }
 void game1scene::mode_medium()
 {
-    hardness_born = 200;
-    hardness_rate = 550;
+    hardness_born = 1000;
+    hardness_rate = 400;
     playGame(hardness_born);
 }
 void game1scene::mode_hard()
 {
     hardness_born = 500;
-    hardness_rate = 70;
+    hardness_rate = 200;
     playGame(hardness_born);
 }
 

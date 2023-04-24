@@ -17,7 +17,10 @@ droplet::droplet(QObject *parent)
 droplet::droplet(int time, int *hp, int *caught, bool birthday){
     this->hp = hp;
     this ->caught = caught;
-    time -= (*caught / 5)*50;
+    time -= (*caught / 5)*25;
+    if(time < 100){
+        time = 100;
+    }
 
     int random_number = arc4random() % 900;
     if (birthday) {
@@ -37,16 +40,9 @@ droplet::droplet(int time, int *hp, int *caught, bool birthday){
 }
 
 void droplet::move_droplet() {
-
-
-
-
-
     if(*hp == 0){
         timer_drop ->stop();
     }
-
-    qDebug() << dropRate;
 
     auto yPos = this ->y();
     yPos += 10;
@@ -61,8 +57,6 @@ void droplet::move_droplet() {
         received->setSource(QUrl("qrc:/bell.wav"));
         receivedOutput->setVolume(0.1);
         received->play();
-
-        *caught += 1;
 
         this->scene()->removeItem(this);
         delete this;
