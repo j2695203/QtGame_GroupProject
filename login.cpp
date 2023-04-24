@@ -71,7 +71,7 @@ void Login::pressLogin()
                 this->close();
             });
         }
-        qDebug() << user->username + "Hellooooo";
+       
     });
 }
 

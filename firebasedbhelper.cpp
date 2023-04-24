@@ -20,7 +20,7 @@ void FirebaseDBHelper::uploadToDatabase(User *user)
     userChildDetail["score"] = user->score;
     userChildDetail["imageUrl"] = user->imageURL;
     userChildDetail["birthday"] = user->birthday;
-    userChildDetail["rankhistory"] = userRankScore;
+    userChildDetail["rankHistory"] = userRankScore;
 
     QVariantMap userParent;
     userParent[user->localID] = userChildDetail;
@@ -63,6 +63,23 @@ void FirebaseDBHelper::setScore(User *user, int score)
         userNewScore["score"] = score;
 
         QJsonDocument jsonDoc = QJsonDocument::fromVariant(userNewScore);
+
+        QNetworkRequest userRequest(QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User/"
+                                         + user->localID + ".json"));
+        userRequest.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+
+        this->networkManager->sendCustomRequest(userRequest, "PATCH", jsonDoc.toJson());
+    }
+}
+
+void FirebaseDBHelper::addHistoryScore(User *user, int score)
+{
+    if (user->username != "") {
+        QVariantMap userAddRankNewScore;
+        user->rankScore.append(score);
+        userAddRankNewScore["rankHistory"] = user->rankScore;
+
+        QJsonDocument jsonDoc = QJsonDocument::fromVariant(userAddRankNewScore);
 
         QNetworkRequest userRequest(QUrl("https://cs6015-final-default-rtdb.firebaseio.com/User/"
                                          + user->localID + ".json"));

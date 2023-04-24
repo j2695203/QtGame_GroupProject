@@ -148,15 +148,18 @@ void SignUpPage::signUserUp(QString password)
     firebaseAuth->signUserUp(user->username + "@gmail.com", password);
     connect(firebaseAuth, &FirebaseAuth::isUsernameExist, this, [=](bool isExist = false) {
         if (isExist) {
+            QLabel *usernameExistLabel = new QLabel("Username exist");
+            label->hide();
             user->username = "";
             user->firstName = "";
             user->lastName = "";
             user->birthday = "";
             qDebug() << "received username exist signal";
-            QLabel *usernameExistLabel = new QLabel("Username exist");
+
             usernameExistLabel->setStyleSheet("color: red");
             layout->addWidget(usernameExistLabel, 0, 2);
         } else {
+            label->hide();
             FirebaseAuth::connect(firebaseAuth->networkAccessManager,
                                   &QNetworkAccessManager::finished,
                                   this,
@@ -181,6 +184,7 @@ void SignUpPage::uploadToStorage()
         fileType = fileInfo.completeSuffix();
         file.close();
     }
+
     firebaseStorage->uploadToStorage(fileData, fileType);
 
     FirebaseStorage::connect(firebaseStorage->networkManager,
