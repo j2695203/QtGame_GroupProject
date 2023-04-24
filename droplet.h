@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QTimer>
 #include <QGraphicsPixmapItem>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 class droplet : public QObject, public QGraphicsPixmapItem
 {
@@ -12,12 +14,16 @@ class droplet : public QObject, public QGraphicsPixmapItem
     int *hp;
     int *caught;
     QTimer *timer_drop;
+    QMediaPlayer *received;
+    QAudioOutput *receivedOutput;
+    QMediaPlayer *missed;
+    QAudioOutput *missedOutput;
 
 
 public:
     explicit droplet(QObject *parent = nullptr);
 
-    droplet(int time, int *hp, int *caught);
+    droplet(int time, int *hp, int *caught, bool birthday);
 
 
 signals:

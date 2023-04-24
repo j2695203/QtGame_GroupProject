@@ -11,8 +11,33 @@
 game1scene::game1scene(User *user)
 {
     this->user = user;
-    // page 1
-        start();
+
+    QString dateQstring = currentDate->currentDateTime().date().toString();
+    std::string toBeDelimited = dateQstring.toStdString();
+    const char delim = ' ';
+
+    std::vector<std::string> currentDateVector;
+    std::stringstream ss(toBeDelimited);
+
+    while(std::getline(ss, toBeDelimited, delim)) {
+        currentDateVector.push_back(toBeDelimited);
+    }
+
+    QString bday = user->birthday;
+    std::string bdaystr = bday.toStdString();
+
+    std::vector<std::string> birthdayVector;
+    std::stringstream ss1(bdaystr);
+
+    while(std::getline(ss1, bdaystr, delim)) {
+        birthdayVector.push_back(bdaystr);
+    }
+
+    if (currentDateVector[1] == birthdayVector[1] && currentDateVector[2] == birthdayVector[2]) {
+        isBirthday = true;
+    }
+
+    start();
 
 }
 
@@ -65,12 +90,13 @@ void game1scene::playGame(int time){
 
     cloudItem -> setPixmap((QPixmap(":/cloud.png")).scaled(910,100));
     cloudItem -> setOpacity(0.85);
+    cloudItem -> setY(-50);
 
     musicPlayer = new QMediaPlayer;
     audioOutput = new QAudioOutput;
     musicPlayer -> setAudioOutput(audioOutput);
     musicPlayer -> setSource(QUrl("qrc:/one_summers_day.mp3"));
-    audioOutput -> setVolume(100);
+    audioOutput -> setVolume(1);
     musicPlayer -> play();
 
     addItem(bucketItem);
@@ -93,7 +119,7 @@ void game1scene::playGame(int time){
 
 void game1scene::addingDroplet() {
 
-    droplet *dropletItem = new droplet(hardness_rate, health_count, droplet_count);
+    droplet *dropletItem = new droplet(hardness_rate, health_count, droplet_count, isBirthday);
     addItem(dropletItem);
     actualScore = *droplet_count * 5;
 
@@ -154,13 +180,6 @@ void game1scene::restart(){
 }
 
 void game1scene::start(){
-//     page 1
-//    music = new QMediaPlayer();
-//    audioOut = new QAudioOutput();
-//    music->setAudioOutput(audioOut);
-//    music->setSource(QUrl("qrc:/one_summers_day.mp3"));
-//    audioOut->setVolume(100);
-//    music->play();
 
     // level section
     level = new QLabel("Level");
@@ -198,33 +217,6 @@ void game1scene::start(){
     button_signout = new QPushButton("Sign out");
 
     userHLayout = new QHBoxLayout();
-
-    QString dateQstring = currentDate->currentDateTime().date().toString();
-    std::string toBeDelimited = dateQstring.toStdString();
-    const char delim = ' ';
-
-    std::vector<std::string> currentDateVector;
-    std::stringstream ss(toBeDelimited);
-
-    while(std::getline(ss, toBeDelimited, delim)) {
-        currentDateVector.push_back(toBeDelimited);
-    }
-
-    QString bday = user->birthday;
-    std::string bdaystr = bday.toStdString();
-
-    std::vector<std::string> birthdayVector;
-    std::stringstream ss1(bdaystr);
-
-    while(std::getline(ss1, bdaystr, delim)) {
-        birthdayVector.push_back(bdaystr);
-    }
-
-    if (currentDateVector[1] == birthdayVector[1] && currentDateVector[2] == birthdayVector[2]) {
-        isBirthday = true;
-    }
-
-
 
     if(isBirthday){
         birthday = new QLabel("Happy Birthday!");
@@ -292,6 +284,8 @@ void game1scene::signOut(){
         v->close();
     }
     this->clear();
+
+    musicPlayer -> stop();
 
 }
 
