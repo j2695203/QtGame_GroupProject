@@ -8,11 +8,16 @@
 class bucket : public QObject, public QGraphicsPixmapItem
 {
 
-    void keyPressEvent(QKeyEvent *event);
 
 
+   Q_OBJECT
 public:
-    bucket();
+     explicit bucket(QObject *parent = nullptr);
+
+signals:
+
+public slots:
+     void keyPressEvent(QKeyEvent *event);
 };
 
 #endif // BUCKET_H

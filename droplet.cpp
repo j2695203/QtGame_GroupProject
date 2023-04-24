@@ -18,7 +18,7 @@ droplet::droplet(int time, int *hp){
     this->setPixmap((QPixmap(":/water.gif")).scaled(20, 40));
     this -> setPos(random_number, 110);
     timer_drop = new QTimer(this);
-    connect(timer_drop, SIGNAL(timeout()), this,SLOT(move_droplet()) );
+    connect(timer_drop,  &QTimer::timeout, this, &droplet::move_droplet);
     timer_drop->start(time);
 }
 

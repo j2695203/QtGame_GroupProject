@@ -33,8 +33,6 @@ void game1scene::playGame(int time){
     // page 2
 
 
-
-
 //    delete levelSection;
     removeItem(levelSection);
     removeItem(userSection);
@@ -72,8 +70,8 @@ void game1scene::playGame(int time){
 }
 
 void game1scene::addingDroplet() {
-    droplet *dropletItem = new droplet(hardness_rate, health_count);
-    addItem(dropletItem);
+//    droplet *dropletItem = new droplet(hardness_rate, health_count);
+    addItem(new droplet(hardness_rate, health_count));
 
     if(*health_count == 0){
         dropletGeneration->stop();
