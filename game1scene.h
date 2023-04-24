@@ -6,13 +6,15 @@
 #include <QObject>
 #include <QWidget>
 #include <QtWidgets>
-#include <QMediaPlayer>>
+#include <QMediaPlayer>
 #include <QAudioOutput>
 #include "bucket.h"
 #include "user.h"
 #include <QtMultimedia/QMediaPlayer>
 #include <QAudioOutput>
 #include <QDateTime>
+#include <vector>
+#include <sstream>
 
 class game1scene : public QGraphicsScene
 {
@@ -23,13 +25,13 @@ class game1scene : public QGraphicsScene
 
     QMediaPlayer *musicPlayer;
     QAudioOutput *audioOutput;
-    QDateTime *currentDate;
+    QDateTime *currentDate = new QDateTime;
 
     int *health_count;
     int *droplet_count;
 
     QLabel *birthday;
-    bool isBirthday = true;
+    bool isBirthday;
     QLabel *user_name;
     QPushButton *button_profile;
     QPushButton *button_score_board;
@@ -73,6 +75,7 @@ public:
     void gameOver(int s);
     void start();
     void setUser(User *user);
+
 
 
 signals:
