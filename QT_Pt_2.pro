@@ -1,6 +1,11 @@
 QT += widgets
 QT += network
+<<<<<<< HEAD
 QT += multimedia multimediawidgets
+=======
+QT += multimedia
+
+>>>>>>> 30d7f37efc468dd99cfe2420290d006133424788
 SOURCES += \
     firebaseauth.cpp \
     firebasedbhelper.cpp \
@@ -32,4 +37,5 @@ HEADERS += \
     user.h
 
 RESOURCES += \
+    application.qrc \
     application.qrc

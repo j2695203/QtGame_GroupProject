@@ -8,28 +8,23 @@ scoreBoard::scoreBoard(QWidget *parent)
     global = new QLabel("Global Ranking");
     layout->addWidget(global, 0, Qt::AlignCenter);
     FirebaseDBHelper dbHelper;
-    QHash<QString, int> score = dbHelper.sortRankScore();
-    //std::qsort(&v[0],v.size(),sizeof(int),QsortIntCompare);
-    //    std::qsort(&score[0], score.size(),sizeof(int), compareValues);
-    //    qsort(score.begin(), score.end(), &scoreBoard::compareValues);
-    //    QVector<QPair<QString, int>> vec;
-    //    for(auto& el : score){
-    //        vec.push_back(el);
-    //    }
+    QMap<QString, int> score = dbHelper.sortRankScore();
+    QList<QPair<int, QString>> inv;
 
-    QHash<QString, int>::const_iterator i;
-    for (i = score.constBegin(); i != score.constEnd(); ++i) {
-        usernameScore = new QLabel(i.key() + " " + QString::number(i.value()));
+    // Populate the inverted list
+    for (auto k : score.keys()) {
+        inv.append(QPair<int, QString>(score[k], k));
+    }
+    std::sort(std::begin(inv), std::end(inv));
+
+
+    for(int i = inv.size()-1; i >= 0; i--){
+        usernameScore = new QLabel(inv[i].second + " " + QString::number(inv[i].first));
         layout->addWidget(usernameScore);
     }
-    //    user = new QLabel("My History Score");
 
     layout->setContentsMargins(100, 30, 100, 30);
 
     setLayout(layout);
 }
 
-bool compareValues(const QPair<QString, int> &a, const QPair<QString, int> &b)
-{
-    return a.second < b.second;
-}

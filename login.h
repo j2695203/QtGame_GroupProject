@@ -30,6 +30,8 @@ class Login : public QWidget
     QGridLayout *gLayout;
     QHBoxLayout *buttomLayout;
 
+
+
 public:
     explicit Login(QWidget *parent = nullptr);
 
@@ -39,6 +41,7 @@ public slots:
     void pressLogin();
     void pressSignUp();
     void pressGuest();
+
 
 private:
     SignUpPage signUpPage;
