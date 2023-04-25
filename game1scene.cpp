@@ -268,10 +268,13 @@ void game1scene::openRank()
 
 void game1scene::signOut()
 {
+    if(musicPlayer != nullptr){
+        musicPlayer->stop();
+    }
     Login *logWindow = new Login();
     logWindow->show();
     QList list = items();
-    for (auto &i : list) {
+    for (auto i : list) {
         removeItem(i);
     }
     QList view = views();
@@ -280,7 +283,7 @@ void game1scene::signOut()
     }
     this->clear();
 
-    musicPlayer->stop();
+
 }
 
 void game1scene::close()
