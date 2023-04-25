@@ -124,7 +124,7 @@ void SignUpPage::loadProfilePic()
                                                      "Images (*.png *.jpg)");
 
     QFile file(file_name);
-    if (!file.open(QIODevice::ReadOnly)) {
+    if (!file.open(QIODevice::ReadWrite)) {
         qDebug() << "Failed to open file";
     } else {
         profileLabel->setText("Upload Success!");
@@ -137,20 +137,22 @@ void SignUpPage::loadProfilePic()
 
 void SignUpPage::signUserUp(QString password)
 {
-    QLabel *label = new QLabel();
-    QMovie *movie = new QMovie(":/loader.gif");
-    layout->addWidget(label, 5, 1);
-    label->setMovie(movie);
-    label->show();
-    movie->start();
-
+    //    QLabel *label = new QLabel();
+    //    QMovie *movie = new QMovie(":/loader.gif");
+    //    layout->addWidget(label, 5, 1);
+    //    label->setMovie(movie);
+    //    label->show();
+    //    movie->start();
+    QLabel *usernameExistLabel = new QLabel("Username exist");
+    layout->addWidget(usernameExistLabel, 0, 2);
+    usernameExistLabel->hide();
+    usernameExistLabel->setStyleSheet("color: red");
     qDebug() << "Sign user up";
     firebaseAuth->signUserUp(user->username + "@gmail.com", password);
 
-    connect(firebaseAuth, &FirebaseAuth::isUsernameExist, this, [=](bool isExist) {
+    connect(firebaseAuth, &FirebaseAuth::isUsernameExist, this, [=](bool isExist = true) {
         if (isExist) {
-            QLabel *usernameExistLabel = new QLabel("Username exist");
-            label->hide();
+            //            label->hide();
             user->username = "";
             user->firstName = "";
             user->lastName = "";
@@ -160,12 +162,11 @@ void SignUpPage::signUserUp(QString password)
             user->rankScore = QList<QVariant>();
             user->imageURL = "";
             qDebug() << "received username exist signal";
+            usernameExistLabel->show();
 
-            usernameExistLabel->setStyleSheet("color: red");
-            layout->addWidget(usernameExistLabel, 0, 2);
-        }
-        if (!isExist) {
-            label->close();
+        } else {
+            //            layout->removeWidget(usernameExistLabel);
+            //            label->close();
             FirebaseAuth::connect(firebaseAuth->networkAccessManager,
                                   &QNetworkAccessManager::finished,
                                   this,

@@ -1,5 +1,6 @@
 #include "firebaseauth.h"
 #include "QtCore/qjsonobject.h"
+#include "signuppage.h"
 
 FirebaseAuth::FirebaseAuth(QObject *parent)
     : QObject{parent}
@@ -37,7 +38,6 @@ void FirebaseAuth::networkReplyResponse()
         qDebug() << this->user->localID;
         emit isUsernameExist(false);
     }
-
     networkReply->deleteLater();
 }
 
