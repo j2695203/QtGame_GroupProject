@@ -279,6 +279,8 @@ void game1scene::signOut()
         v->close();
     }
     this->clear();
+
+    musicPlayer->stop();
 }
 
 void game1scene::close()
