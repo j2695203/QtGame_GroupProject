@@ -98,7 +98,7 @@ void game1scene::addingDroplet()
     scoreText->setPlainText(QString("Score: ") + QVariant(actualScore).toString());
     hpText->setPlainText(QString("HP: ") + QVariant(*health_count).toString());
 
-    if (*health_count == 0) {
+    if (*health_count <= 0) {
         dropletGeneration->stop();
         gameOver(actualScore);
     }
