@@ -71,7 +71,12 @@ void game1scene::playGame(int time)
     musicPlayer = new QMediaPlayer;
     audioOutput = new QAudioOutput;
     musicPlayer->setAudioOutput(audioOutput);
+    if (isBirthday){
+    musicPlayer->setSource(QUrl("qrc:/birthdaysong.mp3"));
+    }
+    else {
     musicPlayer->setSource(QUrl("qrc:/one_summers_day.mp3"));
+    }
     audioOutput->setVolume(100);
     musicPlayer->play();
 
