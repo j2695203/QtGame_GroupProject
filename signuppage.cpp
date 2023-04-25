@@ -66,7 +66,7 @@ SignUpPage::SignUpPage()
                     warning->setText("No Empty Spaces");
                 }else if(match.hasMatch() ) {
                     //Check with database username if it username exist
-
+                    warning->hide();
                     user->username = userName->text().replace(" ", "");
                     user->firstName = qFirstNameEdit->text().replace(" ", "");
                     user->lastName = qLastNameEdit->text().replace(" ", "");
@@ -146,7 +146,8 @@ void SignUpPage::signUserUp(QString password)
 
     qDebug() << "Sign user up";
     firebaseAuth->signUserUp(user->username + "@gmail.com", password);
-    connect(firebaseAuth, &FirebaseAuth::isUsernameExist, this, [=](bool isExist = false) {
+
+    connect(firebaseAuth, &FirebaseAuth::isUsernameExist, this, [=](bool isExist) {
         if (isExist) {
             QLabel *usernameExistLabel = new QLabel("Username exist");
             label->hide();
@@ -154,12 +155,17 @@ void SignUpPage::signUserUp(QString password)
             user->firstName = "";
             user->lastName = "";
             user->birthday = "";
+            user->localID = "";
+            user->score = 0;
+            user->rankScore = QList<QVariant>();
+            user->imageURL = "";
             qDebug() << "received username exist signal";
 
             usernameExistLabel->setStyleSheet("color: red");
             layout->addWidget(usernameExistLabel, 0, 2);
-        } else {
-            label->hide();
+        }
+        if (!isExist) {
+            label->close();
             FirebaseAuth::connect(firebaseAuth->networkAccessManager,
                                   &QNetworkAccessManager::finished,
                                   this,

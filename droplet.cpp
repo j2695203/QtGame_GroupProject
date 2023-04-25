@@ -7,7 +7,7 @@ droplet::droplet(QObject *parent)
 {
     int random_number = arc4random() % 900;
 
-    this -> setPixmap((QPixmap(":/new/prefix1/blue_candy.png")).scaled(20,20));
+    this->setPixmap((QPixmap(":/blue_candy.png")).scaled(20, 20));
     this -> setPos(random_number, 110);
     QTimer *timer_drop = new QTimer(this);
     connect(timer_drop, &QTimer::timeout, this, &droplet::move_droplet);

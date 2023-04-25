@@ -28,8 +28,11 @@ void FirebaseAuth::networkReplyResponse()
 
     if (jsonObj.contains("error")) {
         qDebug() << "The username exist & code: 400";
+        reply = "";
         emit isUsernameExist(true);
-    } else {
+    }
+
+    if (jsonObj.contains("kind")) {
         this->user->localID = jsonObj["localId"].toString();
         qDebug() << this->user->localID;
         emit isUsernameExist(false);
