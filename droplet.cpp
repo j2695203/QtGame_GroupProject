@@ -49,11 +49,11 @@ void droplet::move_droplet() {
     yPos += 10;
     this->setPos(x(), yPos);
 
-    auto items = collidingItems();
+    QList items = collidingItems();
 
     if (items.size() > 0) {
-        foreach (auto item, items) {
-            auto item2 = dynamic_cast<droplet *>(item);
+        for (int i =0; i< items.size(); i++) {
+            auto item2 = dynamic_cast<droplet *>(items[i]);
             if (item2 == NULL) {
                 receivedOutput = new QAudioOutput;
                 received = new QMediaPlayer;
@@ -62,33 +62,25 @@ void droplet::move_droplet() {
                 received->setSource(QUrl("qrc:/bell.wav"));
                 receivedOutput->setVolume(0.1);
                 received->play();
-
                 this->scene()->removeItem(this);
                 delete this;
+                break;
             }
         }
     }
 
-    //    if (collidingItems().size() > 0) {
-    //        receivedOutput = new QAudioOutput;
-    //        received = new QMediaPlayer;
-    //        *caught += 1;
-    //        received->setAudioOutput(receivedOutput);
-    //        received->setSource(QUrl("qrc:/bell.wav"));
-    //        receivedOutput->setVolume(0.1);
-    //        received->play();
+//        if (collidingItems().size() > 0) {
+//            receivedOutput = new QAudioOutput;
+//            received = new QMediaPlayer;
+//            *caught += 1;
+//            received->setAudioOutput(receivedOutput);
+//            received->setSource(QUrl("qrc:/bell.wav"));
+//            receivedOutput->setVolume(0.1);
+//            received->play();
 
 //        this->scene()->removeItem(this);
 //        delete this;
 //    }
-
-    //        *caught += 1;
-
-    //        this->scene()->removeItem(this);
-    //        delete this;
-    //    }
-
-
     else if (yPos > 450) {
         missedOutput = new QAudioOutput;
         missed = new QMediaPlayer;
