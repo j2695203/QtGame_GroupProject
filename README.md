@@ -1,6 +1,9 @@
-# CS6015_Team_Void
+# Spirited Away Catch
+## Interactive GUI Development using Qt Framework
 
-This is a final team project for CS6015 finished within the span of **3 days**. My job in this project is using ***Firebase authentication, storage and realtime database*** tools. I use an authentication tool for authorizing account login and sign up; storage for storing player profile pictures; a realtime database for storing all the player data such as score, username, first name, last name, picture url in storage and birthday.
+To develop an interactive game using Qt framework, focusing on GUI design, object visualization, and user interaction. The project aims to create an engaging gameplay experience with dynamic mechanics and immersive elements, while also incorporating optional features for user account management and progression tracking. Through iterative development and collaborative teamwork, the goal is to deliver a polished gaming application that showcases software development skills and creativity.
+
+This is a final team project for CS6015 finished within the span of **3 days**. It includes using ***Firebase authentication, storage and realtime database*** tools. We use an authentication tool for authorizing account login and sign up; storage for storing player profile pictures; a realtime database for storing all the player data such as score, username, first name, last name, picture url in storage and birthday.
 
 ## Login page
 ![Login](https://github.com/JustHoward0807/CS6015_Team_Void/blob/main/Github-images/Team_Void_Login.png?raw=true)
