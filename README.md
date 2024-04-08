@@ -17,6 +17,6 @@ https://user-images.githubusercontent.com/77046944/235324673-24b35d4a-2de0-4a3f-
 
 
 
-## Gameplay if player birthday
+## Gameplay if it's the player's birthday
 
 https://user-images.githubusercontent.com/77046944/235324679-04b0b6ca-1f53-4b5a-8225-5dccf39de8c7.mp4
